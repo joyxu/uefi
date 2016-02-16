@@ -18,11 +18,13 @@
 #define _OEM_MISC_LIB_H_
 
 
+#include <Uefi.h>
 #include <PlatformArch.h>
 #include <Library/HwMemInitLib.h>
 #include <BootLine.h>
 #include <Library/OemDevicePath.h>
 
+#include <Library/I2CLib.h>
 #define I2C_PORT0   0
 #define I2C_PORT1   1
 #define I2C_INVALIDPORT   0xFF
@@ -223,14 +225,20 @@ VOID CpldRamWriteDimmIsolate(IN UINT32 SelfTestPara);
 
 
 extern CHAR8 *sTokenList[];
+extern I2C_DEVICE gDS3231RtcDevice;
 UINT32 OemEthFindFirstSP();
 ETH_PRODUCT_DESC *OemEthInit(UINT32 port);
 
-VOID InitMarginLog();
-VOID GetMarginRamInfo(UINT16 AreaOffset, UINT8 *Data, UINT8 Bytes);
-VOID SetMarginRamInfo(UINT16 Addr, UINT8 *Data, UINT8 Bytes);
-BOOLEAN OemPreMarginTestInit();
-VOID OemScrubFlagConfig(pGBL_DATA pGblData);
+VOID
+OemRecordMarginResult(
+    pGBL_DATA           pGblData,
+    struct rankMargin   resultsRxDq[], 
+    struct rankMargin   resultsTxDq[], 
+    struct rankMargin   resultsRxVref[], 
+    struct rankMargin   resultsTxVref[]
+);
+VOID GetOemSetupConfig(pGBL_DATA pGblData);
+
 UINTN OemGetSocketNumber(VOID);
 UINTN OemGetDdrChannel (VOID);
 UINTN OemGetDimmSlot(UINTN Socket, UINTN Channel);
@@ -239,5 +247,7 @@ BOOLEAN OemIsLoadDefault();
 BOOLEAN OemIsMpBoot();
 
 BOOLEAN OemIsInitEth(UINT32 Port);
+extern EFI_STRING_ID gDimmToDevLocator[MAX_SOCKET][MAX_CHANNEL][MAX_DIMM];
+EFI_HII_HANDLE EFIAPI OemGetPackages ();
 #endif
 

@@ -24,6 +24,7 @@
 UINT32 PlatformGetPackageType (VOID);
 
 VOID DisplayCpuInfo (VOID);
+UINT32 CheckChipIsEc(VOID);
 
 UINTN PlatformGetPll (UINT32 NodeId, UINTN Pll);
 
@@ -66,6 +67,8 @@ UINT32 DJTAG_TDRE_READ(UINT32 Offset, UINT32 ChainID, UINT32 NodeId, BOOLEAN Rep
 
 VOID RemoveRoceReset(VOID);
 
+UINTN PlatformGetDdrChannel (VOID);
+
 VOID ITSCONFIG (VOID);
 
 VOID MN_CONFIG (VOID);
@@ -78,9 +81,17 @@ VOID StartupAp (VOID);
 VOID LlcCleanInvalidate (VOID);
 
 UINTN PlatformGetCpuFreq (UINT8 Socket);
+VOID ClearInterruptStatus(VOID);
 
 UINTN PlatformGetCoreCount (VOID);
-UINTN PlatformGetDdrChannel (VOID);
+VOID DAWConfigEn(UINT32 socket);
+
 VOID DResetUsb ();
 UINT32 PlatformGetEhciBase ();
+UINT32 PlatformGetOhciBase ();
+VOID PlatformPllInit();
+VOID PlatformDeviceDReset();
+VOID PlatformGicdInit();
+VOID PlatformLpcInit();
+
 #endif

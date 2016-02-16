@@ -37,8 +37,8 @@
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
   IntelFrameworkPkg/IntelFrameworkPkg.dec
-
   OpenPlatformPkg/Chips/Hisilicon/HisiPkg.dec
+
 
 [LibraryClasses]
   UefiDriverEntryPoint

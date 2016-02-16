@@ -17,7 +17,7 @@
 
 #include <Library/DebugLib.h>
 #include <Library/IoLib.h>
-
+#include <Library/TimerLib.h>
 #include <Library/CpldIoLib.h>
 #include <Library/OemMiscLib.h>
 #include <PlatformArch.h>
@@ -196,11 +196,6 @@ VOID OemPcieCardReset(UINT32 Reset)
     return;
 }
 
-UINT32  SelDdrFreq(pGBL_DATA pGblData)
-{
-    return DDR_FREQ_AUTO;
-}
-
 UINT8 OemAhciStartPort(VOID)
 {
     return 0;
@@ -281,9 +276,16 @@ BOOLEAN OemPreMarginTestInit()
     return FALSE;     
 }
 
-VOID OemScrubFlagConfig(pGBL_DATA pGblData)
+VOID
+OemRecordMarginResult(
+    pGBL_DATA           pGblData,
+    struct rankMargin   resultsRxDq[], 
+    struct rankMargin   resultsTxDq[], 
+    struct rankMargin   resultsRxVref[], 
+    struct rankMargin   resultsTxVref[]
+)
 {
-    return;     
+    return;
 }
 
 VOID ClearWatchDogTag(UINT8 tag)
@@ -303,5 +305,49 @@ BOOLEAN OemIsInitEth(UINT32 Port)
 BOOLEAN OemIsMpBoot()
 {
     return FALSE;
+}
+
+VOID GetOemSetupConfig(pGBL_DATA pGblData)
+{
+    UINT8                               i;
+    UINT8                               input = 0;
+    if (pGblData->mem.marginTest)
+    {
+        pGblData->needColdReset = 1;
+    }
+    else
+    {
+        while (1)
+        {
+            if (SerialPortPoll())
+            {
+                (VOID)SerialPortRead ((UINT8*)&input, 1);
+            }
+            else
+            {
+                break;
+            }
+        }
+        DEBUG((EFI_D_ERROR, "\nPress 't' or 'T' to run MarginTest in 3 seconds, any other press to pass\n"));
+
+        for (i = 0; i < 100; i++)
+        {
+            if (SerialPortPoll())
+            {
+                (VOID)SerialPortRead ((UINT8*)&input, 1);
+                break;
+            }
+
+            MicroSecondDelay(30000);
+        }
+
+        if ('T' == input ||  't' == input)
+        {
+            pGblData->mem.marginTest = TRUE;
+            pGblData->needColdReset = 1;
+        }
+    }
+
+    return;
 }
 

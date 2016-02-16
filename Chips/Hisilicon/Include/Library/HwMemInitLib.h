@@ -72,11 +72,6 @@ typedef struct _GBL_NVDATA{
 
 }GBL_NVDATA;
 
-typedef struct _DDRC_BASE_ID{
-    UINTN  Base;
-    UINTN  Id;
-}DDRC_BASE_ID;
-
 typedef struct _GOBAL {
     const GBL_CFG Config;  // constant input data
     GBL_VAR       Variable;    // variable, volatile data
@@ -98,11 +93,21 @@ struct DDR_RANK {
     UINT16      MR6[9];
 };
 
+struct baseMargin {
+  INT16 n;
+  INT16 p;
+};
+
+struct rankMargin {
+  struct baseMargin rank[MAX_CHANNEL][MAX_RANK_CH];
+};
+
 typedef struct _DDR_DIMM{
     BOOLEAN     Status;
     UINT8       mapout;
     UINT8       DramType;           //Byte 2
     UINT8       ModuleType;         //Byte 3
+    UINT8       ExtendModuleType;
     UINT8       SDRAMCapacity;      //Byte 4
     UINT8       BankNum;           
     UINT8       BGNum;              //Byte 4 For DDR4
@@ -151,6 +156,8 @@ typedef struct _DDR_DIMM{
     UINT8       SpdModPart[SPD_MODULE_PART];         		// Module Part Number
 	UINT8       SpdModPartDDR4[SPD_MODULE_PART_DDR4];     	// Module Part Number DDR4
 	UINT16      SpdMMfgId;              // Module Mfg Id from SPD  
+	UINT16      SpdRMId;              // Register Manufacturer Id
+	UINT16      SpdMMDate;              // Module Manufacturing Date
     UINT32      SpdSerialNum; 
     UINT16      DimmSize;   
     UINT16      DimmSpeed; 
@@ -283,6 +290,7 @@ typedef struct _NVRAM_CHANNEL{
     UINT32          DDRC_CFG_DFI_LAT1;
     UINT32          DDRC_CFG_DDRPHY;
     UINT32          Config[24];
+    BOOLEAN         Status;
 }NVRAM_CHANNEL;
 
 typedef struct _NVRAM{
@@ -293,8 +301,10 @@ typedef struct _NVRAM{
 }NVRAM;
 
 typedef struct _MEMORY{
-    UINT8           Config[7];
-    UINT32          Config1;
+    UINT8           Config0;
+    UINT8           marginTest;
+    UINT8           Config1[5];
+    UINT32          Config2;
 }MEMORY;
 
 typedef struct _GBL_DATA
@@ -315,6 +325,7 @@ typedef struct _GBL_DATA
     
     BOOLEAN     SetupExist;
     UINT8       warmReset; 
+    UINT8       needColdReset;
     
     UINT8       cl;
     UINT8       cwl;
@@ -352,9 +363,9 @@ typedef struct _GBL_DATA
     UINT8       debugNeed;
     UINT8       ddr3OdtEnable;
     double      fprd;
+    BOOLEAN     chipIsEc;
     NVRAM       nvram;
     MEMORY      mem;
-    SETUP_PARAMS Setup;
     
 }GBL_DATA, *pGBL_DATA;
 
@@ -431,6 +442,7 @@ struct ODT_ACTIVE_STRUCT {
 #define MFGID_NANYA     0x0B03
 #define MFGID_INPHI     0xB304
 #define MFGID_MONTAGE   0x3206
+#define MFGID_RAMAXEL   0x4304
 
 //
 // DDR3 frequencies 800 - 2667
@@ -499,8 +511,8 @@ struct ODT_ACTIVE_STRUCT {
   #define SPD_MINI_RDIMM      5     // Module type is Mini-RDIMM
   #define SPD_MINI_UDIMM      6     // Module type is Mini-UDIMM
   #define SPD_MINI_CDIMM      7     // Module type is Mini-CDIMM
-  #define SPD_ECC_SO_UDIMM    8     // Module type is 72b-SO-UDIMM
-  #define SPD_ECC_SO_RDIMM    9     // Module type is 72b-SO-RDIMM
+  #define SPD_ECC_SO_UDIMM    9     // Module type is 72b-SO-UDIMM
+  #define SPD_ECC_SO_RDIMM    8     // Module type is 72b-SO-RDIMM
   #define SPD_ECC_SO_CDIMM    10    // Module type is 72b-SO-CDIMM
   #define SPD_LRDIMM          11    // Module type is LRDIMM
   #define SPD_UDIMM_ECC       18    // Module type is UDIMM-ECC

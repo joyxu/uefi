@@ -54,6 +54,9 @@
   ./Type32/MiscBootInformationFunction.c 
   ./Type38/MiscIpmiDeviceInformationData.c
   ./Type38/MiscIpmiDeviceInformationFunction.c
+  
+  ./Type09/MiscSystemSlotDesignationData.c
+  ./Type09/MiscSystemSlotDesignationFunction.c
  
 [Packages]
   ArmPkg/ArmPkg.dec
@@ -77,7 +80,9 @@
   UefiDriverEntryPoint
   UefiLib
 
-  #IpmiCmdLib
+  IpmiCmdLib
+
+  SerdesLib    
 
 [Protocols]
   gEfiSmbiosProtocolGuid                       # PROTOCOL ALWAYS_CONSUMED

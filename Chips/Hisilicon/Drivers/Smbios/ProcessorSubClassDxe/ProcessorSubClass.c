@@ -374,7 +374,10 @@ AddSmbiosCacheTypeTable (
         //
         // 更新Cache信息
         //
-        UpdateSmbiosCacheTable (CacheLevel);
+        if (mSmbiosCacheTable[CacheLevel].MaximumCacheSize == 0)
+        {
+            UpdateSmbiosCacheTable (CacheLevel);
+        }        
 
         StringBufferSize = sizeof(CHAR16) * SMBIOS_STRING_MAX_LENGTH;
         CacheSocketStr = AllocateZeroPool(StringBufferSize);
@@ -612,7 +615,7 @@ AddSmbiosProcessorTypeTable (
     Type4Record->ThreadCount                = ThreadCount;    
     Type4Record->ProcessorCharacteristics   = ProcessorCharacteristics.Data;
 
-    Type4Record->ExternalClock              = (UINT16)(PcdGet32(PcdArmArchTimerFreqInHz) / 1000 / 1000);
+    Type4Record->ExternalClock              = (UINT16)(ArmReadCntFrq() / 1000 / 1000);
 
     OptionalStrStart = (CHAR8 *) (Type4Record + 1);
     UnicodeStrToAsciiStr (ProcessorSocketStr, OptionalStrStart);

@@ -45,5 +45,7 @@
 [FixedPcd]
     gHwTokenSpaceGuid.PcdIsMPBoot
 
+[Pcd]
+    gHwTokenSpaceGuid.PcdSerDesFlowCtrlFlag
 
  

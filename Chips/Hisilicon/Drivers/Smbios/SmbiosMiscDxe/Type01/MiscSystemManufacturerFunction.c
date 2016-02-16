@@ -64,6 +64,7 @@ MISC_SMBIOS_TABLE_FUNCTION(MiscSystemManufacturer)
     CHAR16                          *pVersion;
     //uniBIOS_y00216284_018_end 2015-1-13 09:08:22
     
+    EFI_GUID                        Uuid;
 
     //
     // First check for invalid parameters.
@@ -91,6 +92,9 @@ MISC_SMBIOS_TABLE_FUNCTION(MiscSystemManufacturer)
         HiiSetString (mHiiHandle, TokenToUpdate, pVersion, NULL);
     }
     //uniBIOS_y00216284_018_end 2015-1-13 09:07:36
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_SYSTEM_PRODUCT_NAME), ProductNameType01);
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_SYSTEM_SERIAL_NUMBER), SerialNumType01);
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_SYSTEM_MANUFACTURER), SystemManufacturerType01);
 
     
     //获取相关字符串的长度
@@ -141,6 +145,12 @@ MISC_SMBIOS_TABLE_FUNCTION(MiscSystemManufacturer)
    
     //(VOID)CopyMem((UINT8 *) (&SmbiosRecord->Uuid), sizeof(EFI_GUID), &InputData->Uuid, sizeof(EFI_GUID)); 
     SmbiosRecord->Uuid = InputData->Uuid;
+    Status = GetUuidType1 (&Uuid);
+    if (!EFI_ERROR (Status))
+    {
+        
+        SmbiosRecord->Uuid = Uuid;
+    }
 
     OptionalStrStart = (CHAR8 *)(SmbiosRecord + 1);
     UnicodeStrToAsciiStr(Manufacturer, OptionalStrStart);

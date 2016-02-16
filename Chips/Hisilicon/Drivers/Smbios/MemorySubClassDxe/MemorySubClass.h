@@ -44,7 +44,7 @@
 
 extern UINT8 MemorySubClassStrings[];
 
-#define MAX_DIMM_SIZE       16  // In GB
+#define MAX_DIMM_SIZE       32  // In GB
 
 struct SPD_JEDEC_MANUFACTURER 
 {

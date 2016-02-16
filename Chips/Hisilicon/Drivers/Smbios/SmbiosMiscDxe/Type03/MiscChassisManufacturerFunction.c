@@ -32,7 +32,16 @@ UINT8
 GetChassisType (
 )
 { 
-   return 0;
+    EFI_STATUS                      Status;
+    UINT8                           ChassisType;
+
+    Status = IpmiGetChassisType(&ChassisType);
+    if (EFI_ERROR(Status))
+    {        
+       return 0;
+    }
+
+    return ChassisType;
 }
 
 /**
@@ -81,10 +90,10 @@ MISC_SMBIOS_TABLE_FUNCTION(MiscChassisManufacturer)
 
     InputData = (SMBIOS_TABLE_TYPE3 *)RecordData;
 
-    //UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_CHASSIS_ASSET_TAG), AssetTagType03);
-    //UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_CHASSIS_SERIAL_NUMBER), SrNumType03);
-    //UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_CHASSIS_VERSION), VersionType03);
-    //UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_CHASSIS_MANUFACTURER), ManufacturerType03);
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_CHASSIS_ASSET_TAG), AssetTagType03);
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_CHASSIS_SERIAL_NUMBER), SrNumType03);
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_CHASSIS_VERSION), VersionType03);
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_CHASSIS_MANUFACTURER), ManufacturerType03);
 
     TokenToGet = STRING_TOKEN (STR_MISC_CHASSIS_MANUFACTURER);
     Manufacturer = HiiGetPackageString(&gEfiCallerIdGuid, TokenToGet, NULL);

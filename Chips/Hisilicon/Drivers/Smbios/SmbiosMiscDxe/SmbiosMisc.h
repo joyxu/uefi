@@ -207,5 +207,26 @@ GetLinkTypeHandle(
   OUT UINTN                 *HandleCount
   );
 
+typedef enum {
+    ProductNameType01,
+    SerialNumType01,
+    UuidType01,
+    SystemManufacturerType01,
+    AssertTagType02,
+    SrNumType02,
+    BoardManufacturerType02,
+    AssetTagType03,
+    SrNumType03,    
+    VersionType03,
+    ChassisTypeType03 ,
+    ManufacturerType03,
+} GET_INFO_BMC_OFFSET;
+
+
+VOID UpdateSmbiosInfo (IN EFI_HII_HANDLE mHiiHandle, IN EFI_STRING_ID TokenToUpdate, IN UINT8 Offset);
+EFI_STATUS GetUuidType1 (IN OUT EFI_GUID *Uuid);
+
+EFI_STATUS IpmiGetChassisType (IN OUT UINT8 *Type);
+
 
 #endif

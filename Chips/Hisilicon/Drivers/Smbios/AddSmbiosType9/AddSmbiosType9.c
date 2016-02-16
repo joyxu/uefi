@@ -18,6 +18,95 @@
 extern SMBIOS_TABLE_TYPE9 gPcieSlotInfo[];
 extern UINT8 OemGetPcieSlotNumber ();
 
+REPORT_PCIEDIDVID2BMC  PcieDeviceToReport_2P[PCIEDEVICE_REPORT_MAX] = {
+      {67,0,0,0},   
+      {225,0,0,3},   
+      {0xFFFF,0xFFFF,0xFFFF,0xFFFF},
+      {0xFFFF,0xFFFF,0xFFFF,0xFFFF}
+};
+
+
+/*****************************************************************************
+ 函 数 名  :   UpdateSmbiosType9Info
+ 功能描述  :  更新SMBIOS TYPE9信息。
+ 输入参数  :  Type9Record               SMBIOS TYPE9信息。
+ 输出参数  : 无
+ 返 回 值  : VOID
+*****************************************************************************/
+VOID 
+EFIAPI 
+UpdateSmbiosType9Info( 
+  IN OUT SMBIOS_TABLE_TYPE9             *Type9Record
+)
+{
+    EFI_STATUS                         Status;
+    UINTN                              HandleIndex;
+    EFI_HANDLE                        *HandleBuffer;
+    UINTN                              HandleCount;
+    EFI_PCI_IO_PROTOCOL               *PciIo;
+    UINTN                              SegmentNumber;
+    UINTN                              BusNumber;
+    UINTN                              DeviceNumber;
+    UINTN                              FunctionNumber;
+    UINTN                              Index;
+    REPORT_PCIEDIDVID2BMC              ReportPcieDidVid[PCIEDEVICE_REPORT_MAX];
+
+    
+    if(OemIsMpBoot()){
+        (VOID)CopyMem((VOID *)ReportPcieDidVid,(VOID *)PcieDeviceToReport_2P,sizeof(PcieDeviceToReport_2P));
+    } else {
+        (VOID)CopyMem((VOID *)ReportPcieDidVid,(VOID *)PcieDeviceToReport,sizeof(PcieDeviceToReport));
+    }  
+    
+    Status = gBS->LocateHandleBuffer (
+                                      ByProtocol,
+                                      &gEfiPciIoProtocolGuid,
+                                      NULL,
+                                      &HandleCount,
+                                      &HandleBuffer
+                                      );    
+    if(EFI_ERROR(Status)) {
+        DEBUG((EFI_D_ERROR, " Locate gEfiPciIoProtocol Failed.\n"));           
+        gBS->FreePool ((VOID *)HandleBuffer);
+        return;
+    }
+
+    for (HandleIndex = 0; HandleIndex < HandleCount; HandleIndex++) {
+        Status = gBS->HandleProtocol (
+                                        HandleBuffer[HandleIndex],
+                                        &gEfiPciIoProtocolGuid,
+                                        (VOID **)&PciIo
+                                        );
+        if (EFI_ERROR (Status)) {
+            DEBUG((EFI_D_ERROR, "[%a]:[%dL] Status : %r\n", __FUNCTION__, __LINE__, Status));
+            
+            continue;
+        }
+
+        (VOID)PciIo->GetLocation(PciIo, &SegmentNumber, &BusNumber, &DeviceNumber, &FunctionNumber);
+
+        for(Index = 0; Index < sizeof(ReportPcieDidVid) / sizeof(REPORT_PCIEDIDVID2BMC); Index++){
+            if (Type9Record->SlotID == ReportPcieDidVid[Index].Slot + 1) {
+                if((BusNumber == ReportPcieDidVid[Index].Bus) && (DeviceNumber == ReportPcieDidVid[Index].Device)) {
+                    
+                    DEBUG((EFI_D_ERROR,"PCIe device plot in slot Seg %d  bdf %d %d %d\r\n",SegmentNumber,BusNumber,DeviceNumber,FunctionNumber));
+                    
+                    Type9Record->SegmentGroupNum   = SegmentNumber;
+                    Type9Record->BusNum            = BusNumber;
+                    Type9Record->DevFuncNum        = (DeviceNumber << 3) | FunctionNumber;
+                    Type9Record->CurrentUsage      = SlotUsageInUse;
+                    
+                    break;
+                } 
+            }            
+        }
+    }
+
+    gBS->FreePool ((VOID *)HandleBuffer);
+    
+    return;
+}
+
 EFI_STATUS
 EFIAPI
 AddSmbiosType9Entry (
@@ -73,6 +162,8 @@ AddSmbiosType9Entry (
         }
         
         Type9Record = &gPcieSlotInfo[Index];  
+
+        UpdateSmbiosType9Info (Type9Record);
 
         SlotDesignation = AllocateZeroPool ((sizeof (CHAR16)) * SMBIOS_STRING_MAX_LENGTH);
         if (NULL == SlotDesignation)

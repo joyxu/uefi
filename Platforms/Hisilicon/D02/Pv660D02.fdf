@@ -108,6 +108,7 @@ gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|gEfiMdeModulePkgTok
 
 ## Place for Trusted Firmware
 0x00200000|0x00020000
+gHwTokenSpaceGuid.PcdTrustedFirmwareBL1Base
 FILE = OpenPlatformPkg/Platforms/Hisilicon/Binary/D02/bl1.bin
 0x00220000|0x000e0000
 FILE = OpenPlatformPkg/Platforms/Hisilicon/Binary/D02/fip.bin
@@ -150,7 +151,7 @@ READ_LOCK_STATUS   = TRUE
   INF MdeModulePkg/Core/Dxe/DxeMain.inf
   INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
 
-  INF OpenPlatformPkg/Chips/Hisilicon/Drivers/IoInitDxe/IoInitDxe.inf
+  INF OpenPlatformPkg/Chips/Hisilicon/Pv660/Drivers/IoInitDxe/IoInitDxe.inf
 
   #
   # PI DXE Drivers producing Architectural Protocols (EFI Services)
@@ -336,14 +337,14 @@ READ_LOCK_STATUS   = TRUE
   INF ArmPlatformPkg/PrePeiCore/PrePeiCoreMPCore.inf
   INF MdeModulePkg/Core/Pei/PeiMain.inf
   INF ArmPlatformPkg/PlatformPei/PlatformPeim.inf
+  INF MdeModulePkg/Universal/FaultTolerantWritePei/FaultTolerantWritePei.inf
+  INF MdeModulePkg/Universal/Variable/Pei/VariablePei.inf      
   #INF ArmPlatformPkg/MemoryInitPei/MemoryInitPeim.inf
   #INF OpenPlatformPkg/Chips/Hisilicon/Override/ArmPlatformPkg/MemoryInitPei/MemoryInitPeim.inf
   INF OpenPlatformPkg/Platforms/Hisilicon/Binary/D02/MemoryInitPei/MemoryInitPeim.inf
   INF ArmPkg/Drivers/CpuPei/CpuPei.inf
   INF MdeModulePkg/Universal/PCD/Pei/Pcd.inf
   INF IntelFrameworkModulePkg/Universal/StatusCode/Pei/StatusCodePei.inf
-  #INF MdeModulePkg/Universal/FaultTolerantWritePei/FaultTolerantWritePei.inf
-  #INF MdeModulePkg/Universal/Variable/Pei/VariablePei.inf
   
   INF OpenPlatformPkg/Platforms/Hisilicon/D02/EarlyConfigPeim/EarlyConfigPeim.inf
   INF MdeModulePkg/Core/DxeIplPeim/DxeIpl.inf

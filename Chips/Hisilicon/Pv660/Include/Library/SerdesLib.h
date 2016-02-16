@@ -98,9 +98,9 @@ UINT32 serdes_eye_test(UINT32 uwMacroId, UINT32 uwDsNum, UINT32 eyemode, UINT32 
 UINT32 Serdes_ReadBert(UINT32   ulMacroId , UINT32   ulDsNum);
 
 //PRBS test
-UINT32 serdes_prbs_test(UINT32   ulMacroId , UINT32   ulDsNum,UINT32 PrbsType);
+int serdes_prbs_test(UINT8   ulMacroId , UINT8   ulDsNum,UINT8 PrbsType);
 
-UINT32 serdes_prbs_test_cancle(UINT32  ulMacroId,UINT32 ulDsNum);
+int serdes_prbs_test_cancle(UINT8  ulMacroId,UINT8 ulDsNum);
 
 //CTLE/DFE
 void serdes_ctle_adaptation_close(UINT32 macro,UINT32 lane);
@@ -117,11 +117,11 @@ void serdes_ctle_dfe_reset(UINT32 macro,UINT32 lane);
 
 //uniBIOS_l00306713_000_start 2015-7-15 9:13:55
  
-void serdes_tx_to_rx_serial_loopback(UINT32 macro,UINT32 lane,UINT32 val);
+int serdes_tx_to_rx_serial_loopback(UINT8 macro,UINT8 lane,UINT8 val);
 
-void serdes_tx_to_rx_parallel_loopback(UINT32 macro,UINT32 lane,UINT32 val);
+int serdes_tx_to_rx_parallel_loopback(UINT8 macro,UINT8 lane,UINT8 val);
 
-void serdes_rx_to_tx_parallel_loopback(UINT32 macro,UINT32 lane,UINT32 val);
+int serdes_rx_to_tx_parallel_loopback(UINT8 macro,UINT8 lane,UINT8 val);
 //uniBIOS_l00306713_000_end   2015-7-15 9:13:55
 
 #endif

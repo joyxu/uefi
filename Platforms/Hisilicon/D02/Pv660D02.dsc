@@ -29,6 +29,7 @@
   SKUID_IDENTIFIER               = DEFAULT
   FLASH_DEFINITION               = OpenPlatformPkg/Platforms/Hisilicon/D02/$(PLATFORM_NAME).fdf
   DEFINE EDK2_SKIP_PEICORE=0
+  DEFINE INCLUDE_TFTP_COMMAND=1
 
 !include OpenPlatformPkg/Chips/Hisilicon/Pv660/Pv660.dsc.inc
 
@@ -47,6 +48,7 @@
   #UpdateCpldLib|OpenPlatformPkg/Platforms/Hisilicon/D02/UpdateCpldLib/UpdateCpldLib.inf
   TimerLib|ArmPkg/Library/ArmArchTimerLib/ArmArchTimerLib.inf
 
+  IpmiCmdLib|OpenPlatformPkg/Chips/Hisilicon/Binary/Hi1610/Library/IpmiCmdLib/IpmiCmdLib.inf
 
   NetLib|MdeModulePkg/Library/DxeNetLib/DxeNetLib.inf
   DpcLib|MdeModulePkg/Library/DxeDpcLib/DxeDpcLib.inf
@@ -152,8 +154,6 @@
   
   gEfiMdeModulePkgTokenSpaceGuid.PcdMaxVariableSize|0x2000
 
-  gArmTokenSpaceGuid.PcdVFPEnabled|0
-
   # Stacks for MPCores in Secure World
   #gArmPlatformTokenSpaceGuid.PcdCPUCoresSecStackBase|0x21000000
   #gArmPlatformTokenSpaceGuid.PcdCPUCoreSecPrimaryStackSize|0x10000
@@ -174,7 +174,7 @@
   #UEFI BIOS_t00216239_end   2014-10-29 11:00:07
 
   gArmTokenSpaceGuid.PcdSystemMemoryBase|0x00000000
-  gArmTokenSpaceGuid.PcdSystemMemorySize|0x3c000000
+  gArmTokenSpaceGuid.PcdSystemMemorySize|0x3FC00000
   #gArmTokenSpaceGuid.PcdSystemMemorySize|0x20000000
 
   # Size of the region used by UEFI in permanent memory (Reserved 64MB)
@@ -209,12 +209,12 @@
   gHwTokenSpaceGuid.PcdPcieSmmuBaseAddress|0xb0040000
   gHwTokenSpaceGuid.PcdDsaSmmuBaseAddress|0xc0040000
   gHwTokenSpaceGuid.PcdAlgSmmuBaseAddress|0xd0040000
-  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareVersionString|L"D02 BIOS LINARO B905"
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareVersionString|L"Estuary v2.2 D02 UEFI"
 
   gHwTokenSpaceGuid.PcdSystemProductName|L"D02"
-  gHwTokenSpaceGuid.PcdSystemVersion|L"LINARO"
-  gHwTokenSpaceGuid.PcdBaseBoardProductName|L"CH02TEVBC"
-  gHwTokenSpaceGuid.PcdBaseBoardVersion|L"LINARO"
+  gHwTokenSpaceGuid.PcdSystemVersion|L"Estuary"
+  gHwTokenSpaceGuid.PcdBaseBoardProductName|L"D02"
+  gHwTokenSpaceGuid.PcdBaseBoardVersion|L"Estuary"
   
   gHwTokenSpaceGuid.PcdSlotPerChannelNum|0x2
 
@@ -222,6 +222,8 @@
   gHwTokenSpaceGuid.PcdSasBaseAddress|0xb1000000
   gHwTokenSpaceGuid.PcdSasCtrlBaseAddress|0xb0000000
   
+  gHwTokenSpaceGuid.PcdPcieRootBridgeMask|0x6 # bit0:HB0RB0,bit1:HB0RB1,bit2:HB0RB2,bit3:HB0RB3,bit4:HB1RB0,bit5:HB1RB1,bit6:HB1RB2,bit7:HB1RB3^M
+
   #
   # ARM PL390 General Interrupt Controller
   #
@@ -237,6 +239,10 @@
   gHwTokenSpaceGuid.PcdNORFlashBase|0x90000000
   gHwTokenSpaceGuid.PcdNORFlashCachableSize|0x8000000
 
+  ## Reserved Memory for NVRAM BaseAddress and Size
+  gHwTokenSpaceGuid.PcdReservedNvramBase|0
+  gHwTokenSpaceGuid.PcdReservedNvramSize|0
+  
   #
   # ARM OS Loader
   #
@@ -295,7 +301,21 @@
   gHwTokenSpaceGuid.PcdBottomOfHighMemory|0x1000000000
   
   gHwTokenSpaceGuid.PcdTrustedFirmwareEnable|0x1
-  gHwTokenSpaceGuid.PcdTrustedFirmwareBL1Base|0xA4A00000
+
+  gHwTokenSpaceGuid.PcdHb1BaseAddress|0x400000000000 # 4T
+
+  gHwTokenSpaceGuid.PcdHb0Rb0PciConfigurationSpaceBaseAddress|0x30000000000
+  gHwTokenSpaceGuid.PcdHb0Rb0PciConfigurationSpaceSize|0x10000000000
+  
+  gHwTokenSpaceGuid.PcdHb0Rb1PciConfigurationSpaceBaseAddress|0x22000000000
+  gHwTokenSpaceGuid.PcdHb0Rb1PciConfigurationSpaceSize|0x10000000
+  
+  gHwTokenSpaceGuid.PcdHb0Rb2PciConfigurationSpaceBaseAddress|0x24000000000
+  gHwTokenSpaceGuid.PcdHb0Rb2PciConfigurationSpaceSize|0x10000000
+  
+  gHwTokenSpaceGuid.PcdHb0Rb3PciConfigurationSpaceBaseAddress|0x26000000000
+  gHwTokenSpaceGuid.PcdHb0Rb3PciConfigurationSpaceSize|0x10000000
+
 
   gEfiMdeModulePkgTokenSpaceGuid.PcdResetOnMemoryTypeInformationChange|FALSE
   gEfiIntelFrameworkModulePkgTokenSpaceGuid.PcdShellFile|{ 0x83, 0xA5, 0x04, 0x7C, 0x3E, 0x9E, 0x1C, 0x4F, 0xAD, 0x65, 0xE0, 0x52, 0x68, 0xD0, 0xB4, 0xD1 }
@@ -404,7 +424,7 @@
   }
   MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
 
-  OpenPlatformPkg/Chips/Hisilicon/Drivers/IoInitDxe/IoInitDxe.inf
+  OpenPlatformPkg/Chips/Hisilicon/Pv660/Drivers/IoInitDxe/IoInitDxe.inf
 
   #
   # Architectural Protocols

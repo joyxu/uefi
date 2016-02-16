@@ -60,8 +60,7 @@ MISC_SMBIOS_TABLE_FUNCTION(MiscBaseBoardManufacturer)
     SMBIOS_TABLE_TYPE2                *InputData = NULL;
     EFI_STATUS                        Status;
 
-    //uniBIOS_y00216284_018_start DTS2015010906228 2015-1-13 09:08:22
-    //Description:通过PCD获取不同单板对应主板相应信息
+ 
     STRING_REF                        TokenToUpdate;
     //CHAR16                            *ProductName;
     //CHAR16                            *pVersion;
@@ -77,8 +76,7 @@ MISC_SMBIOS_TABLE_FUNCTION(MiscBaseBoardManufacturer)
 
     InputData = (SMBIOS_TABLE_TYPE2*)RecordData; 
 
-    //uniBIOS_y00216284_018_start DTS2015010906228 2015-1-13 09:08:22
-    //Description:通过PCD获取不同单板对应主板相应信息
+ 
     BaseBoardProductName = (CHAR16 *) PcdGetPtr (PcdBaseBoardProductName);
     if (StrLen(BaseBoardProductName) > 0) 
     {
@@ -92,7 +90,10 @@ MISC_SMBIOS_TABLE_FUNCTION(MiscBaseBoardManufacturer)
         TokenToUpdate = STRING_TOKEN (STR_MISC_BASE_BOARD_VERSION);
         HiiSetString (mHiiHandle, TokenToUpdate, Version, NULL);
     }
-    //uniBIOS_y00216284_018_end 2015-1-13 09:07:36
+
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_BASE_BOARD_ASSET_TAG), AssertTagType02);
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_BASE_BOARD_SERIAL_NUMBER), SrNumType02);
+    UpdateSmbiosInfo(mHiiHandle, STRING_TOKEN (STR_MISC_BASE_BOARD_MANUFACTURER), BoardManufacturerType02);
 
     //
     // 获取字符串信息
@@ -130,15 +131,13 @@ MISC_SMBIOS_TABLE_FUNCTION(MiscBaseBoardManufacturer)
                                                                 + SerialNumStrLen   + 1 
                                                                 + AssetTagStrLen    + 1 
                                                                 + ChassisLocaStrLen + 1 + 1);
-    //uniBIOS_c00213799_start DTS2014121003065 2014-12-11 14:47:57
-    //Description:coverity
+    
     if (NULL == SmbiosRecord)
     {
         Status = EFI_OUT_OF_RESOURCES;
         goto Exit;
     }
-    //uniBIOS_c00213799_end  2014-12-11 14:47:57 
-    
+ 
     (VOID)CopyMem(SmbiosRecord, InputData, sizeof (SMBIOS_TABLE_TYPE2));
     SmbiosRecord->Hdr.Length        = sizeof (SMBIOS_TABLE_TYPE2);
    

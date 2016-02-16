@@ -25,6 +25,7 @@
 #include <Library/CpldD02.h>
 #include <Library/TimerLib.h>
 #include <Library/I2CLib.h>
+#include <Library/HiiLib.h>
 
 I2C_SLAVE_ADDR  DimmSpdAddr[MAX_SOCKET][MAX_CHANNEL][MAX_DIMM] = {
     {{{I2C_PORT1,0x50},{I2C_PORT1,0x51},{I2C_INVALIDPORT,0xFF}},      //Socket 0 TC DDRC0
@@ -163,3 +164,21 @@ ETH_PRODUCT_DESC *OemEthInit(UINT32 port)
     return (ETH_PRODUCT_DESC *)(&(gEthPdtDesc[port]));
 }
 
+EFI_STRING_ID gDimmToDevLocator[MAX_SOCKET][MAX_CHANNEL][MAX_DIMM] = {
+  {{STRING_TOKEN(STR_D02_DIMM_000), STRING_TOKEN(STR_D02_DIMM_001), 0xFFFF},
+   {STRING_TOKEN(STR_D02_DIMM_010), STRING_TOKEN(STR_D02_DIMM_011), 0xFFFF}}
+};
+
+EFI_HII_HANDLE
+EFIAPI
+OemGetPackages (
+  )
+{
+    return HiiAddPackages (
+                            &gEfiCallerIdGuid,
+                            NULL,
+                            OemMiscLibD02Strings,
+                            NULL,
+                            NULL
+                            );  
+}

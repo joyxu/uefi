@@ -1,0 +1,55 @@
+#******************************************************************************
+#
+#                  版权所有 (C), 2009-2019, 华为技术有限公司
+#
+# ******************************************************************************
+#  文 件 名   : CpldDriverLib.inf
+#  版 本 号   : v1.0
+#  作    者   : y00216284
+#  生成日期   : 2014年10月20日
+#  最近修改   :
+#  功能描述   : Inf文件
+#  修改历史   :1.z00304930 2015-1-8 Issue ID:DTS2015010800198 Description:第二轮代码检视意见修改     
+#             2.uniBIOS_y00216284_043_start DTS2015051309310 BIOS自研代码PCLint整改  2015-5-13 >>>          
+#******************************************************************************/
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CpldIoLibRuntime
+  FILE_GUID                      = C0939398-4AF5-43d0-B6FF-37996D642C04
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = CpldIoLib
+  CONSTRUCTOR                    = CpldRuntimeLibConstructor
+  DESTRUCTOR                     = CpldRuntimeLibDestructor
+
+[Sources.common]
+  CpldIoLibRuntime.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  EmbeddedPkg/EmbeddedPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  ArmPkg/ArmPkg.dec
+  ArmPlatformPkg/ArmPlatformPkg.dec
+  OpenPlatformPkg/Chips/Hisilicon/HisiPkg.dec
+
+
+[LibraryClasses]
+  UefiRuntimeLib
+  UefiBootServicesTableLib
+  DxeServicesTableLib
+  DebugLib
+  IoLib
+  BaseLib
+  ArmLib
+  TimerLib
+  PcdLib
+  PlatformSysCtrlLib
+[BuildOptions]
+
+[Guids]
+  gEfiEventVirtualAddressChangeGuid
+[Pcd]
+  gHwTokenSpaceGuid.PcdCpldBaseAddress

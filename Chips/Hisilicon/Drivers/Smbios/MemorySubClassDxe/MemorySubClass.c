@@ -137,7 +137,7 @@ SmbiosGetMemoryType (
     }
     else if (pGblData->Channel[Skt][Ch].Dimm[Dimm].DramType == SPD_TYPE_DDR4) 
     {
-        MemoryType = MemoryTypeDram;
+        MemoryType = MemoryTypeDdr4;  
     }
     else
     {
@@ -436,7 +436,7 @@ SmbiosAddType17Table (
     EFI_STRING                      SerialNumberStr;
     EFI_STRING                      AssertTagStr;
     EFI_STRING                      PartNumberStr;
-    EFI_STRING_ID                   AssetTag;
+    EFI_STRING_ID                   DeviceLocator;
 
     //Status              = EFI_SUCCESS;
     Type17Record        = NULL;
@@ -465,9 +465,6 @@ SmbiosAddType17Table (
         return EFI_OUT_OF_RESOURCES;
     }    
 
-    (VOID)StrCpyS(StringBuffer, SMBIOS_STRING_MAX_LENGTH - 1, L"NO DIMM");
-    AssetTag = HiiSetString (mHiiHandle, 0, StringBuffer, NULL);
-    
     //
     // Manufacture
     //
@@ -523,7 +520,7 @@ SmbiosAddType17Table (
 
         if (MemoryDeviceSize >= 0x7fff) 
         {
-            MemoryDeviceExtendSize = MemoryDeviceSize << 10;  // in MB
+            MemoryDeviceExtendSize = MemoryDeviceSize;  // in MB
             MemoryDeviceSize = 0x7fff;                    // max value
         } 
 
@@ -548,8 +545,7 @@ SmbiosAddType17Table (
         //
         // AssetTag
         //
-        AssetTag = STRING_TOKEN (STR_MEMORY_SUBCLASS_UNKNOWN);
-        AssertTagStr = HiiGetPackageString (&gEfiCallerIdGuid, AssetTag, NULL);
+        UnicodeSPrint(AssertTagStr, SMBIOS_STRING_MAX_LENGTH - 1, L"Unknown"); 
 
         //
         // PartNumber
@@ -566,7 +562,19 @@ SmbiosAddType17Table (
         Status = EFI_OUT_OF_RESOURCES;
         goto FREE_STR_PN;
     }
-    UnicodeSPrint(DeviceLocatorStr, SMBIOS_STRING_MAX_LENGTH, L"DIMM%x%x%x", Skt, Ch, Dimm);
+   
+    DeviceLocator = gDimmToDevLocator[Skt][Ch][Dimm];
+    if (DeviceLocator != 0xFFFF)
+    {
+        UnicodeSPrint(DeviceLocatorStr, SMBIOS_STRING_MAX_LENGTH, L"DIMM%x%x%x ", Skt, Ch, Dimm);
+        StringBuffer = HiiGetPackageString (&gEfiCallerIdGuid, DeviceLocator, NULL);
+        (VOID)StrCatS(DeviceLocatorStr, SMBIOS_STRING_MAX_LENGTH, StringBuffer); 
+    }
+    else
+    {
+        UnicodeSPrint(DeviceLocatorStr, SMBIOS_STRING_MAX_LENGTH, L"DIMM%x%x%x", Skt, Ch, Dimm);
+    }     
+
     DeviceLocatorStrLen = StrLen (DeviceLocatorStr);
 
     //
@@ -715,13 +723,7 @@ MemorySubClassEntryPoint(
     //
     // Add our default strings to the HII database. They will be modified later.
     //
-    mHiiHandle = HiiAddPackages (
-                                &gEfiCallerIdGuid,
-                                NULL,
-                                MemorySubClassStrings,
-                                NULL,
-                                NULL
-                                );
+    mHiiHandle = OemGetPackages();
     if(NULL == mHiiHandle)
     {
         return EFI_OUT_OF_RESOURCES;

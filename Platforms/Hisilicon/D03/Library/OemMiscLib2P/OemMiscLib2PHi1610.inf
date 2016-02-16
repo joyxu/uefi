@@ -1,0 +1,57 @@
+##################################################
+#
+#Copyright (C), 1988-2020, Huawei Tech. Co., Ltd.
+#
+#File name: OemMiscLibEvb.inf
+#
+#Author: uniBIOS-g00179230 (Heyi Guo)    Date: 2014.10.10
+#
+#Description:
+#
+##################################################
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = OemMiscLib2P
+  FILE_GUID                      = B9CE7465-21A2-4ecd-B347-BBDDBD098CEE
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = OemMiscLib
+
+[Sources.common]
+  BoardFeature2PHi1610.c
+  OemMiscLib2PHi1610.c
+  BoardFeature2PHi1610Strings.uni   # uniBIOS_y00216284_118_start DTS2015111307719当前内存命名缺少位号信息 2015-11-17 >>>
+
+[Sources.AARCH64.GCC]
+  AArch64/OemPostStartIndicator2PHi1610.s
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+  ArmPkg/ArmPkg.dec
+  ArmPlatformPkg/ArmPlatformPkg.dec
+  OpenPlatformPkg/Chips/Hisilicon/HisiPkg.dec
+
+[LibraryClasses]
+  PcdLib
+  TimerLib
+  
+[BuildOptions]
+
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid   ## SOMETIMES_CONSUMES
+
+[Pcd]
+  gHwTokenSpaceGuid.PcdTrustedFirmwareEnable
+  gHwTokenSpaceGuid.PcdIsMPBoot     ## DTS2015042210118 l00228991
+  gArmTokenSpaceGuid.PcdArmArchTimerFreqInHz
+  gHwTokenSpaceGuid.PcdBoardType ##uniBIOS-z00172672 DTS2015110407293 201511061706
+[FixedPcd.common]
+
+[Guids]
+  gBootLineVariableGuid
+  
+[Protocols]
+

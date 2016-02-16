@@ -19,9 +19,13 @@
 
 #include <Uefi.h>
 #include <PiDxe.h>
-#include <Protocol/Smbios.h>
+#include <IndustryStandard/Pci.h>
 #include <IndustryStandard/SmBios.h>
+#include <Protocol/Smbios.h>
+#include <Protocol/PciIo.h>
+#include <Protocol/PciRootBridgeIo.h>
 #include <Library/BaseLib.h>
+#include <Library/BaseMemoryLib.h>
 #include <Library/DebugLib.h>
 #include <Library/UefiLib.h>
 #include <Library/PrintLib.h>
