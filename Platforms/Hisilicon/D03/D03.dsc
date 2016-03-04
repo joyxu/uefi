@@ -194,7 +194,7 @@
   gHwTokenSpaceGuid.PcdSlotPerChannelNum|0x2
 
   
-  gHwTokenSpaceGuid.PcdPcieRootBridgeMask|0xC4 # bit0:HB0RB0,bit1:HB0RB1,bit2:HB0RB2,bit3:HB0RB3,bit4:HB1RB0,bit5:HB1RB1,bit6:HB1RB2,bit7:HB1RB3
+  gHwTokenSpaceGuid.PcdPcieRootBridgeMask|0x7 # bit0:HB0RB0,bit1:HB0RB1,bit2:HB0RB2,bit3:HB0RB3,bit4:HB1RB0,bit5:HB1RB1,bit6:HB1RB2,bit7:HB1RB3
   
   ## SP805 Watchdog - Motherboard Watchdog
   gArmPlatformTokenSpaceGuid.PcdSP805WatchdogBase|0x601e0000
@@ -315,15 +315,15 @@
   gHwTokenSpaceGuid.PcdHb1BaseAddress|0x40000000000
 
 
-  gHwTokenSpaceGuid.PcdHb0Rb0PciConfigurationSpaceBaseAddress|0xA8000000
-  gHwTokenSpaceGuid.PcdHb0Rb0PciConfigurationSpaceSize|0x1000000
-  
-  gHwTokenSpaceGuid.PcdHb0Rb1PciConfigurationSpaceBaseAddress|0xA9000000
-  gHwTokenSpaceGuid.PcdHb0Rb1PciConfigurationSpaceSize|0x1000000
-  
-  gHwTokenSpaceGuid.PcdHb0Rb2PciConfigurationSpaceBaseAddress|0xA8000000
-  gHwTokenSpaceGuid.PcdHb0Rb2PciConfigurationSpaceSize|0x8000000
-  
+  gHwTokenSpaceGuid.PcdHb0Rb0PciConfigurationSpaceBaseAddress|0xB0000000
+  gHwTokenSpaceGuid.PcdHb0Rb0PciConfigurationSpaceSize|0x8000000
+
+  gHwTokenSpaceGuid.PcdHb0Rb1PciConfigurationSpaceBaseAddress|0xB0000000
+  gHwTokenSpaceGuid.PcdHb0Rb1PciConfigurationSpaceSize|0x10000000
+
+  gHwTokenSpaceGuid.PcdHb0Rb2PciConfigurationSpaceBaseAddress|0xA0000000
+  gHwTokenSpaceGuid.PcdHb0Rb2PciConfigurationSpaceSize|0x10000000
+
   gHwTokenSpaceGuid.PcdHb0Rb3PciConfigurationSpaceBaseAddress|0xAC000000
   gHwTokenSpaceGuid.PcdHb0Rb3PciConfigurationSpaceSize|0x4000000
 
@@ -331,8 +331,34 @@
   gHwTokenSpaceGuid.PciHb0Rb1Base|0xa0200000
   gHwTokenSpaceGuid.PciHb0Rb2Base|0xa00a0000
   gHwTokenSpaceGuid.PciHb0Rb3Base|0xa00b0000
-  
-  gHwTokenSpaceGuid.Pcdsoctype|0x1610     
+
+  gHwTokenSpaceGuid.PcdHb0Rb0PciRegionBaseAddress|0xb2000000
+  gHwTokenSpaceGuid.PcdHb0Rb0PciRegionSize|0x5feffff
+
+  gHwTokenSpaceGuid.PcdHb0Rb1PciRegionBaseAddress|0xb8000000
+  gHwTokenSpaceGuid.PcdHb0Rb1PciRegionSize|0x5feffff
+
+  gHwTokenSpaceGuid.PcdHb0Rb2PciRegionBaseAddress|0xaa000000
+  gHwTokenSpaceGuid.PcdHb0Rb2PciRegionSize|0x5feffff
+
+  gHwTokenSpaceGuid.PcdHb0Rb0CpuMemRegionBase|0xB2000000
+  gHwTokenSpaceGuid.PcdHb0Rb1CpuMemRegionBase|0xB8000000
+  gHwTokenSpaceGuid.PcdHb0Rb2CpuMemRegionBase|0xAA000000
+
+  gHwTokenSpaceGuid.PcdHb0Rb0CpuIoRegionBase|0xb7ff0000
+  gHwTokenSpaceGuid.PcdHb0Rb1CpuIoRegionBase|0xbdff0000
+  gHwTokenSpaceGuid.PcdHb0Rb2CpuIoRegionBase|0xAfff0000
+
+  gHwTokenSpaceGuid.PcdHb0Rb0IoBase|0
+  gHwTokenSpaceGuid.PcdHb0Rb0IoSize|0xffff #64K
+
+  gHwTokenSpaceGuid.PcdHb0Rb1IoBase|0
+  gHwTokenSpaceGuid.PcdHb0Rb1IoSize|0xffff #64K
+
+  gHwTokenSpaceGuid.PcdHb0Rb2IoBase|0
+  gHwTokenSpaceGuid.PcdHb0Rb2IoSize|0xffff #64K
+
+  gHwTokenSpaceGuid.Pcdsoctype|0x1610
   gHwTokenSpaceGuid.PcdBoardType|1
 
   ## SP804 DualTimer
@@ -555,7 +581,7 @@
   OpenPlatformPkg/Chips/Hisilicon/Hi1610/Drivers/PcieInit1610/PcieInitDxe.inf
   OpenPlatformPkg/Platforms/Hisilicon/D03/Drivers/PciPlatform/PciPlatform.inf
   OpenPlatformPkg/Chips/Hisilicon/Hi1610/Drivers/PciHostBridgeDxe1610/PciHostBridgeDxe.inf
-  MdeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf 
+  MdeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf
   
   OpenPlatformPkg/Platforms/Hisilicon/Binary/D03/Drivers/ReportPciePlugDidVidToBmc/ReportPciePlugDidVidToBmc.inf
 

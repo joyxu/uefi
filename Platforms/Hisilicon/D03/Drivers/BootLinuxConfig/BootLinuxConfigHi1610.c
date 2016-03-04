@@ -62,7 +62,7 @@ BootLinuxConfig (
     //DEBUG((EFI_D_ERROR,"ITS CONFIG........."));
     //(VOID)ITSCONFIG();
     //DEBUG((EFI_D_ERROR,"Done\n"));
-    
+
     DEBUG((EFI_D_ERROR,"AP CONFIG........."));
     (VOID)QResetAp();
     DEBUG((EFI_D_ERROR,"Done\n"));
@@ -110,21 +110,34 @@ BootLinuxConfig (
     }
 
     DEBUG((EFI_D_ERROR,"PCIE RAM Address CONFIG........."));
-    
-    MmioWrite32(0xa0001000, 0x27);    
-    MmioWrite32(0xa0001018, 0x15003d);  //PCIE2  0xA8000000~0xB0000000
-   
+
+    //MmioWrite32(0xa0001000, 0x27);
+    //MmioWrite32(0xa0001018, 0x15003d);  //PCIE2  0xA8000000~0xB0000000
+
     if(OemIsMpBoot())
     {
-    	
+        MmioWrite32(0xa0001000, 0x27);    
+        MmioWrite32(0xa0001018, 0x15003d);  //PCIE2  0xA8000000~0xB0000000
+        //uniBIOS__l00228991_start DTS2015112607868 2015-12-4 15:15:47
+        //Description:修改从片PCIE子系统地址为0xB0000000
+        //DTS2015111710758重新划分了从片的空间
         MmioWrite32(0xb0001000, 0x2F);    
         MmioWrite32(0xb0001010, 0x178033);  //PCIE3  0xBC000000~0xC0000000
         MmioWrite32(0xb0001018, 0x170035);  //PCIE2  0xB8000000~0xBC000000
-		
+
     }
-    
+
+    else
+    {
+        MmioWrite32(0xa0001200, 0x0);
+        MmioWrite32(0xa0001000, 0x77);
+        MmioWrite32(0xa0001014, 0x17003c);  //PCIE1  0xB8000000~0xC0000000
+        MmioWrite32(0xa0001018, 0x15003d);  //PCIE2  0xA8000000~0xB0000000
+        MmioWrite32(0xa000101C, 0x16003e);  //PCIE0  0xB0000000~0xB8000000
+    }
+
     DEBUG((EFI_D_ERROR,"Done\n"));
-    
+
     MmioWrite32(0xd00021f0, 0x7);
     //MmioWrite32(0xa0000a8c, 0x1f);
 

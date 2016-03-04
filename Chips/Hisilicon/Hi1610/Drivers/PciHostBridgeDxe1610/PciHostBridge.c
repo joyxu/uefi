@@ -18,10 +18,10 @@ sz7YUCnBOcToCLX1vDCh+k3OdBLAJtsPILvYV7/xlriq5kGv7GUMzQ07iyiV+g==#*/
  * WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
  *
  **/
-  
+
 /* Modify list
 DATA        AUTHOR          REASON
-2015.10.15  y00216284-103   DTS2015101000181 清理新合入代码引入的PCLINT   
+2015.10.15  y00216284-103   DTS2015101000181 清理新合入代码引入的PCLINT
 */
 //DTS2015110700120 1610 PCIe 代码上库
 #include <Uefi.h>   // uniBIOS_y00216284_065_start DTS2015072900796 PCLint告警消除 2015-7-29 >>>
@@ -48,7 +48,7 @@ UINT64 RootBridgeAttribute[PCIE_MAX_HOSTBRIDGE][PCIE_MAX_ROOTBRIDGE] = {
             EFI_PCI_HOST_BRIDGE_MEM64_DECODE,
             EFI_PCI_HOST_BRIDGE_MEM64_DECODE,
             EFI_PCI_HOST_BRIDGE_MEM64_DECODE,
-            EFI_PCI_HOST_BRIDGE_MEM64_DECODE,	
+            EFI_PCI_HOST_BRIDGE_MEM64_DECODE,
     }
     };
 
@@ -149,7 +149,7 @@ EFI_PCI_ROOT_BRIDGE_DEVICE_PATH mEfiPciRootBridgeDevicePath[PCIE_MAX_HOSTBRIDGE]
           0
         }
       }
-    }  
+    }
 },
 { // Host Bridge1
   /* Port 0 */
@@ -247,7 +247,7 @@ EFI_PCI_ROOT_BRIDGE_DEVICE_PATH mEfiPciRootBridgeDevicePath[PCIE_MAX_HOSTBRIDGE]
           0
         }
       }
-    }  
+    }
   }
 };
 
@@ -256,88 +256,112 @@ PCI_ROOT_BRIDGE_RESOURCE_APPETURE  mResAppeture[PCIE_MAX_HOSTBRIDGE][PCIE_MAX_RO
   //DTS2015120805510 修改pcie bus号的分布，否则OS的3008卡会有问题
   /* Port 0 */
   {
+      PCI_HB0RB0_ECAM_BASE, //ecam
       0,  //BusBase //DTS2015072003703 和OS Kernel PCIe bus号保持同步
       31, //BusLimit//DTS2015072003703
-      (PCI_HB0RB0_ECAM_BASE),  //MemBase
-      (PCI_HB0RB0_ECAM_BASE + PCI_HB0RB0_ECAM_SIZE - 1), //MemLimit
-      (0), //IoBase
-      (0),  //IoLimit
-      (PCI_HB0RB0_PCI_BASE)  //RbPciBar      
+      PCI_HB0RB0_PCIREGION_BASE, //Membase
+      PCI_HB0RB0_PCIREGION_BASE + PCI_HB0RB0_PCIREGION_SIZE - 1, //Memlimit
+      PCI_HB0RB0_IO_BASE,  //IoBase
+      (PCI_HB0RB0_CPUIOREGIONBASE + PCI_HB0RB0_IO_SIZE - 1), //IoLimit
+      PCI_HB0RB0_CPUMEMREGIONBASE, //CpuMemRegionBase
+      PCI_HB0RB0_CPUIOREGIONBASE,  //CpuIoRegionBase
+      (PCI_HB0RB0_PCI_BASE)  //RbPciBar
   },
   /* Port 1 */
   {
-      32,  //BusBase
-      63, //BusLimit
-      (PCI_HB0RB1_ECAM_BASE),  //MemBase
-      (PCI_HB0RB1_ECAM_BASE + PCI_HB0RB1_ECAM_SIZE - 1), //MemLimit
-      (0), //IoBase
-      (0),  //IoLimit
-      (PCI_HB0RB1_PCI_BASE)  //RbPciBar      
+      PCI_HB0RB1_ECAM_BASE,//ecam
+      224,  //BusBase
+      254, //BusLimit
+	  PCI_HB0RB1_PCIREGION_BASE, //Membase
+      PCI_HB0RB1_PCIREGION_BASE + PCI_HB0RB1_PCIREGION_SIZE - 1, //MemLimit
+      (PCI_HB0RB1_IO_BASE),  //IoBase
+      (PCI_HB0RB1_CPUIOREGIONBASE + PCI_HB0RB1_IO_SIZE - 1), //IoLimit
+      PCI_HB0RB1_CPUMEMREGIONBASE, //CpuMemRegionBase
+      PCI_HB0RB1_CPUIOREGIONBASE,  //CpuIoRegionBase
+      (PCI_HB0RB1_PCI_BASE)  //RbPciBar
   },
   /* Port 2 */
   {
-      64,  //BusBase
-      95, //BusLimit
-      (PCI_HB0RB2_ECAM_BASE),  //MemBase
-      (PCI_HB0RB2_ECAM_BASE + PCI_HB0RB2_ECAM_SIZE - 1), //MemLimit
-      (0), //IoBase
-      (0),  //IoLimit
-      (PCI_HB0RB2_PCI_BASE)  //RbPciBar      
+      PCI_HB0RB2_ECAM_BASE,
+      128,  //BusBase
+      159, //BusLimit
+      PCI_HB0RB2_PCIREGION_BASE ,//MemBase
+      PCI_HB0RB2_PCIREGION_BASE + PCI_HB0RB2_PCIREGION_SIZE - 1, //MemLimit
+      (PCI_HB0RB2_IO_BASE),  //IOBase
+      (PCI_HB0RB2_CPUIOREGIONBASE + PCI_HB0RB2_IO_SIZE - 1), //IoLimit
+      PCI_HB0RB2_CPUMEMREGIONBASE, //CpuMemRegionBase
+      PCI_HB0RB2_CPUIOREGIONBASE,  //CpuIoRegionBase
+      (PCI_HB0RB2_PCI_BASE)  //RbPciBar
   },
 
   /* Port 3 */
   {
+      PCI_HB0RB3_ECAM_BASE,
       96,  //BusBase
       127, //BusLimit
       (PCI_HB0RB3_ECAM_BASE),  //MemBase
       (PCI_HB0RB3_ECAM_BASE + PCI_HB0RB3_ECAM_SIZE - 1), //MemLimit
       (0), //IoBase
       (0),  //IoLimit
-      (PCI_HB0RB3_PCI_BASE)  //RbPciBar      
-  }  
+      0,
+      0,
+      (PCI_HB0RB3_PCI_BASE)  //RbPciBar
+  }
  },
 {// HostBridge 1
   /* Port 0 */
   {
+      PCI_HB1RB0_ECAM_BASE,
       128,  //BusBase
       159, //BusLimit
       (PCI_HB1RB0_ECAM_BASE),  //MemBase
       (PCI_HB1RB0_ECAM_BASE + PCI_HB1RB0_ECAM_SIZE - 1), //MemLimit
       (0), //IoBase
       (0),  //IoLimit
-      (PCI_HB1RB0_PCI_BASE)  //RbPciBar      
+      0,
+      0,
+      (PCI_HB1RB0_PCI_BASE)  //RbPciBar
   },
   /* Port 1 */
   {
+      PCI_HB1RB1_ECAM_BASE,
       160,  //BusBase
       191, //BusLimit
       (PCI_HB1RB1_ECAM_BASE),  //MemBase
       (PCI_HB1RB1_ECAM_BASE + PCI_HB1RB1_ECAM_SIZE - 1), //MemLimit
       (0), //IoBase
       (0),  //IoLimit
-      (PCI_HB1RB1_PCI_BASE)  //RbPciBar      
+      0,
+      0,
+      (PCI_HB1RB1_PCI_BASE)  //RbPciBar
   },
   /* Port 2 */
   {
+      PCI_HB1RB2_ECAM_BASE,
       192,  //BusBase
       223, //BusLimit
       (PCI_HB1RB2_ECAM_BASE),  //MemBase
       (PCI_HB1RB2_ECAM_BASE + PCI_HB1RB2_ECAM_SIZE - 1), //MemLimit
       (0), //IoBase
       (0),  //IoLimit
-      (PCI_HB1RB2_PCI_BASE)  //RbPciBar      
+      0,
+      0,
+      (PCI_HB1RB2_PCI_BASE)  //RbPciBar
   },
 
   /* Port 3 */
   {
+      PCI_HB1RB3_ECAM_BASE,
       224,  //BusBase
       255, //BusLimit
       (PCI_HB1RB3_ECAM_BASE),  //MemBase
       (PCI_HB1RB3_ECAM_BASE + PCI_HB1RB3_ECAM_SIZE - 1), //MemLimit
       (0), //IoBase
       (0),  //IoLimit
-      (PCI_HB1RB3_PCI_BASE)  //RbPciBar      
-  }  
+      0,
+      0,
+      (PCI_HB1RB3_PCI_BASE)  //RbPciBar
+  }
  }
 };
 
@@ -392,7 +416,7 @@ InitializePciHostBridge (
   PCI_HOST_BRIDGE_INSTANCE    *HostBridge = NULL;
   PCI_ROOT_BRIDGE_INSTANCE    *PrivateData;
   UINT32       PcieRootBridgeMask;
-  
+
   //DTS2015110700120 1610 PCIe 代码上库
   //uniBIOS__l00228991_start DTS2016010404352 2016-1-4 16:06:06
   //Description:LemonC10 1P代码上库
@@ -413,15 +437,15 @@ InitializePciHostBridge (
   //
   Status = gBS->LocateProtocol (&gEfiCpuIo2ProtocolGuid, NULL, (VOID **)(&mCpuIo));
   //ASSERT_EFI_ERROR (Status);
-  //DTS2015081106545 coverity&fortify整改 
+  //DTS2015081106545 coverity&fortify整改
    if (EFI_ERROR(Status))
    {
       DEBUG((EFI_D_ERROR,"LocateProtocol CpuIo2Protocol Error\n"));
    }
-  
+
   //MmioWrite32(0xb0080018, 0);
   //MmioWrite32(0xb0090018, 0);
-	
+
   for (Loop1 = 0; Loop1 < PCIE_MAX_HOSTBRIDGE; Loop1++) {
     if (((PcieRootBridgeMask >> (4 * Loop1)) & 0xF ) == 0) {
       continue;
@@ -449,10 +473,10 @@ InitializePciHostBridge (
     //
     // Create Root Bridge Device Handle in this Host Bridge
     //
-    for (Loop2 = 0; Loop2 < HostBridge->RootBridgeNumber; Loop2++) {		
+    for (Loop2 = 0; Loop2 < HostBridge->RootBridgeNumber; Loop2++) {
       if (!(((PcieRootBridgeMask >> (4 * Loop1)) >> Loop2 ) & 0x01)) {
         continue;
-      }		
+      }
 
       PrivateData = AllocateZeroPool (sizeof(PCI_ROOT_BRIDGE_INSTANCE));
       if (PrivateData == NULL) {
@@ -523,7 +547,7 @@ NotifyAllocateMemResources(
   PCIE_DEBUG("Addrlen:%llx\n", AddrLen);
   // Get the number of '1' in Alignment.
   BitsOfAlignment = (UINTN) (HighBitSet64 (RootBridgeInstance->ResAllocNode[Index].Alignment) + 1);
-			
+
   BaseAddress = (RootBridgeInstance->MemBase + *AllocatedLenMem +
                        RootBridgeInstance->ResAllocNode[Index].Alignment)
                         & ~(RootBridgeInstance->ResAllocNode[Index].Alignment);
@@ -532,7 +556,7 @@ NotifyAllocateMemResources(
           RootBridgeInstance->ResAllocNode[Index].Length = 0;
           return ReturnStatus;
   }
-				
+
   PCIE_DEBUG("(P)Mem32/64 request memory at:%llx\n", BaseAddress);
   ReturnStatus = gDS->AllocateMemorySpace (
                      EfiGcdAllocateAddress,
@@ -557,7 +581,7 @@ NotifyAllocateMemResources(
         RootBridgeInstance->ResAllocNode[Index].Length = 0;
       }
     }
-  return ReturnStatus;          
+  return ReturnStatus;
 }
 
 EFI_STATUS
@@ -583,8 +607,8 @@ NotifyAllocateResources(
         if(Index == TypeIo) {
           PCIE_DEBUG("NOT SUPPOER IO RESOURCES ON THIS PLATFORM\n");
         } else if ((Index >= TypeMem32) && (Index <= TypePMem64)) {
-		  ReturnStatus = NotifyAllocateMemResources(RootBridgeInstance,Index,&AllocatedLenMem);	  	
-          } else { 
+		  ReturnStatus = NotifyAllocateMemResources(RootBridgeInstance,Index,&AllocatedLenMem);
+          } else {
                ASSERT (FALSE);
 		    }
       }
@@ -617,13 +641,13 @@ NotifyFreeResources(
       if (RootBridgeInstance->ResAllocNode[Index].Status == ResAllocated) {
         AddrLen = RootBridgeInstance->ResAllocNode[Index].Length;
         BaseAddress = RootBridgeInstance->ResAllocNode[Index].Base;
-          
+
 	    if(Index <= TypePMem64){
             ReturnStatus = gDS->FreeMemorySpace (BaseAddress, AddrLen);
-	    }else{ 
+	    }else{
             ASSERT (FALSE);
 	     }
-          
+
         RootBridgeInstance->ResAllocNode[Index].Type      = Index;
         RootBridgeInstance->ResAllocNode[Index].Base      = 0;
         RootBridgeInstance->ResAllocNode[Index].Length    = 0;
@@ -813,7 +837,7 @@ NotifyPhase(
   case EfiPciHostBridgeFreeResources:
     PCIE_DEBUG("Case EfiPciHostBridgeFreeResources\n");
 
-    ReturnStatus = NotifyFreeResources(HostBridgeInstance);	
+    ReturnStatus = NotifyFreeResources(HostBridgeInstance);
     break;
 
   case EfiPciHostBridgeEndResourceAllocation:
@@ -1269,7 +1293,7 @@ SubmitResources(
         }
         Index = 0;
         SubmitGetResourceType(Ptr,&Index);
-	   	
+
         AddrLen = (UINTN) Ptr->AddrLen;
         Alignment = (UINTN) Ptr->AddrRangeMax;
         //if (AddrLen == *(UINT64*)(UINT64)PcdGet64(PcdMemSizeAddr)) {
@@ -1330,7 +1354,7 @@ SetResource(
 
   Temp = Buffer;
 
-  for (Index = 0; Index < TypeBus; Index ++) 
+  for (Index = 0; Index < TypeBus; Index ++)
   {
     if (RootBridgeInstance->ResAllocNode[Index].Status != ResNone) {
       Ptr = (EFI_ACPI_ADDRESS_SPACE_DESCRIPTOR *) Temp ;
@@ -1445,7 +1469,7 @@ SetResource(
   }
   ((EFI_ACPI_END_TAG_DESCRIPTOR *)Temp)->Desc = 0x79;
   ((EFI_ACPI_END_TAG_DESCRIPTOR *)Temp)->Checksum = 0x0;
-	  
+
   return EFI_SUCCESS;
 }
 /**

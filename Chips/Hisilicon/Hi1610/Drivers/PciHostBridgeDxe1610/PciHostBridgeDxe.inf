@@ -35,7 +35,7 @@
   MemoryAllocationLib
   DxeServicesTableLib
   CacheMaintenanceLib
-  DmaLib  
+  DmaLib
   BaseMemoryLib
   BaseLib
   DebugLib
@@ -55,7 +55,7 @@
 #  XGenePcieCore.h
   #XGenePcieSerdes.c
   #XGenePcieSerdes.h
-  
+
 
 [Protocols]
   gEfiPciHostBridgeResourceAllocationProtocolGuid
@@ -66,7 +66,7 @@
   gEfiCpuIo2ProtocolGuid                          # Consumed
 
 [depex]
-  gEfiMetronomeArchProtocolGuid AND gEfiCpuIo2ProtocolGuid 
+  gEfiMetronomeArchProtocolGuid AND gEfiCpuIo2ProtocolGuid
 
 [FeaturePcd]
 #  gArmPlatformTokenSpaceGuid.PcdPcieRootBridgeResetGpio
@@ -93,6 +93,35 @@
   gHwTokenSpaceGuid.PciHb0Rb2Base
   gHwTokenSpaceGuid.PciHb0Rb3Base
   gHwTokenSpaceGuid.Pcdsoctype
-  
+  gHwTokenSpaceGuid.PcdHb0Rb0PciRegionBaseAddress
+  gHwTokenSpaceGuid.PcdHb0Rb1PciRegionBaseAddress
+  gHwTokenSpaceGuid.PcdHb0Rb2PciRegionBaseAddress
+  gHwTokenSpaceGuid.PcdHb0Rb3PciRegionBaseAddress
+
+  gHwTokenSpaceGuid.PcdHb0Rb0PciRegionSize
+  gHwTokenSpaceGuid.PcdHb0Rb1PciRegionSize
+  gHwTokenSpaceGuid.PcdHb0Rb2PciRegionSize
+  gHwTokenSpaceGuid.PcdHb0Rb3PciRegionSize
+
+  gHwTokenSpaceGuid.PcdHb0Rb0CpuMemRegionBase
+  gHwTokenSpaceGuid.PcdHb0Rb1CpuMemRegionBase
+  gHwTokenSpaceGuid.PcdHb0Rb2CpuMemRegionBase
+
+  gHwTokenSpaceGuid.PcdHb0Rb0CpuIoRegionBase
+  gHwTokenSpaceGuid.PcdHb0Rb1CpuIoRegionBase
+  gHwTokenSpaceGuid.PcdHb0Rb2CpuIoRegionBase
+
+  gHwTokenSpaceGuid.PcdHb0Rb1IoBase
+  gHwTokenSpaceGuid.PcdHb0Rb1IoSize
+
+  gHwTokenSpaceGuid.PcdHb0Rb2IoBase
+  gHwTokenSpaceGuid.PcdHb0Rb2IoSize
+  gHwTokenSpaceGuid.PcdHb0Rb0IoBase
+  gHwTokenSpaceGuid.PcdHb0Rb0IoSize
+  gHwTokenSpaceGuid.PcdHb0Rb1IoBase
+  gHwTokenSpaceGuid.PcdHb0Rb1IoSize
+  gHwTokenSpaceGuid.PcdHb0Rb2IoBase
+  gHwTokenSpaceGuid.PcdHb0Rb2IoSize
+
 [Guids]
   gEfiEventExitBootServicesGuid                 ## PRODUCES ## Event
