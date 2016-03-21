@@ -469,7 +469,8 @@ PlatformBdsPolicyBehavior (
   BdsLibBuildOptionFromVar (BootOptionList, L"BootOrder");
 
   //PlatformBdsEnterFrontPage (GetFrontPageTimeoutFromQemu(), TRUE);
-  Print (L"Press any key in %d seconds to stop automatical booting...\n", PcdGet16(PcdPlatformBootTimeOut));
+  Print (L"Press Enter to boot OS immediately.\n");
+  Print (L"Press any other key in %d seconds to stop automatical booting...\n", PcdGet16(PcdPlatformBootTimeOut));
   PlatformBdsEnterFrontPage (PcdGet16(PcdPlatformBootTimeOut), TRUE);
 }
 
