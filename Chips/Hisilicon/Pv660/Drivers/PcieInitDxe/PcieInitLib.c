@@ -1164,6 +1164,17 @@ BOOLEAN PcieIsLinkUp(UINT32 HostBridgeNum, UINT32 Port)
 
     return FALSE;
 }
+
+VOID PcieWriteOwnConfig(UINT32 Port, UINT32 Offset)
+{
+    UINT32 Value = 0;
+    Value = PcieRegRead(Port,Offset & (~0x3));
+    Value &= 0x0000ffff;
+    Value |= 0x06040000;
+    PcieRegWrite(Port, Offset & (~0x3), Value);
+    return;
+}
+
 /*****************************************************************************
  函 数 名  : PciePortInit
  功能描述  : PCIE端口初始化
@@ -1284,7 +1295,8 @@ PciePortInit (
      (VOID)PcieDisabledBar0(HostBridgeNum, PortIndex);
 
      //PcieRegWrite(PortIndex, 0x10, 0);
-     PcieRegWrite(PortIndex, 0x8, 0x6040000);
+     //PcieRegWrite(PortIndex, 0x8, 0x6040000);
+     (VOID)PcieWriteOwnConfig(PortIndex, 0xa);
      PcieRegWrite(PortIndex, 0x80c, 0x208FF);
      
      return EFI_SUCCESS;
