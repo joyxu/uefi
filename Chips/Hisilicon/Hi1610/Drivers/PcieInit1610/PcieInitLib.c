@@ -1072,6 +1072,20 @@ VOID PcieWriteOwnConfig(UINT32 HostBridgeNum, UINT32 Port, UINT32 Offset, UINT32
 
      //}
 }
+
+void PcieConfigContextHi1610(UINT32 soctype, UINT32 HostBridgeNum, UINT32 Port)
+{
+	UINT32 Value = 0;
+
+    RegWrite(PCIE_APB_SLVAE_BASE_1610[HostBridgeNum][Port] + 0x11b4, 0xc6010040);
+    RegWrite(PCIE_APB_SLVAE_BASE_1610[HostBridgeNum][Port] + 0x11c4, 0);
+    RegRead(PCIE_APB_SLVAE_BASE_1610[HostBridgeNum][Port] + 0x11c8, Value);
+    Value |= (1 << 12);
+    RegWrite(PCIE_APB_SLVAE_BASE_1610[HostBridgeNum][Port] + 0x11c8, Value);
+
+    return;
+}
+
 /*****************************************************************************
  函 数 名  : PciePortInit
  功能描述  : PCIE端口初始化
@@ -1179,6 +1193,7 @@ PciePortInit (
      //uniBIOS__l00228991_end   2015-7-20 13:35:42
      DEBUG((EFI_D_ERROR, "HostBridge %d, Port %d Link up ok\n", HostBridgeNum, PortIndex));
      
+     PcieConfigContextHi1610(soctype, HostBridgeNum, PortIndex);
      PcieRegWrite(PortIndex, 0x10, 0);
 	 //DTS2015111710758 PCIe建链保持和内核一致
      (VOID)PcieWriteOwnConfig(HostBridgeNum, PortIndex, 0xa, 0x0604);
