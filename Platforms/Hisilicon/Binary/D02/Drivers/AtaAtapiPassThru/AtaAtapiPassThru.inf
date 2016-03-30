@@ -36,3 +36,4 @@
 
 [Binaries]
   PE32|AtaAtapiPassThruDxe.efi|*
+  DXE_DEPEX|AtaAtapiPassThruDxe.depex|*

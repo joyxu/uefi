@@ -37,7 +37,8 @@
   Iort.asl
   Spcr.aslc
   Dbg2.aslc
-  
+  SASSSDT.ASL
+  SATASSDT.ASL
 [Packages]
   ArmPkg/ArmPkg.dec
   ArmPlatformPkg/ArmPlatformPkg.dec

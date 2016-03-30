@@ -45,3 +45,6 @@
 [Pcd]
   gHwTokenSpaceGuid.PcdSasBaseAddress
   gHwTokenSpaceGuid.PcdSasCtrlBaseAddress
+
+[Depex]
+ NOT gSataEnableFlagProtocolGuid

@@ -265,6 +265,7 @@ READ_LOCK_STATUS   = TRUE
   #INF MdeModulePkg/Universal/Network/VlanConfigDxe/VlanConfigDxe.inf
 
   INF OpenPlatformPkg/Chips/Hisilicon/Drivers/UpdateFdtDxe/UpdateFdtDxe.inf
+  INF OpenPlatformPkg/Chips/Hisilicon/Pv660/Drivers/UnInstallAcpiTableDxe/UnInstallAcpiTable.inf
   
   #
   # Multimedia Card Interface
@@ -276,8 +277,8 @@ READ_LOCK_STATUS   = TRUE
   #Sata
   #
   #INF OpenPlatformPkg/Chips/Hisilicon/Drivers/AtaAtapiPassThru/AtaAtapiPassThru.inf
-  #INF OpenPlatformPkg/Platforms/Hisilicon/Binary/D02/Drivers/AtaAtapiPassThru/AtaAtapiPassThru.inf
-  #INF MdeModulePkg/Bus/Ata/AtaBusDxe/AtaBusDxe.inf
+  INF OpenPlatformPkg/Platforms/Hisilicon/Binary/D02/Drivers/AtaAtapiPassThru/AtaAtapiPassThru.inf
+  INF MdeModulePkg/Bus/Ata/AtaBusDxe/AtaBusDxe.inf
 
   #
   # USB Support
