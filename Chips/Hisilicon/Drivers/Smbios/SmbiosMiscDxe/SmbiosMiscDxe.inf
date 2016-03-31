@@ -79,6 +79,7 @@
   UefiRuntimeServicesTableLib
   UefiDriverEntryPoint
   UefiLib
+  HobLib
 
   IpmiCmdLib
 
@@ -110,6 +111,7 @@
   
 [Guids]
   gEfiGenericVariableGuid
+  gVersionInfoHobGuid
 
 [Depex]  
   gEfiSmbiosProtocolGuid 

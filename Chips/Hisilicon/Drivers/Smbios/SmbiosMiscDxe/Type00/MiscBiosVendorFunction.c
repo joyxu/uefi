@@ -27,7 +27,9 @@ Based on the files under Nt32Pkg/MiscSubClassPlatformDxe/
 
 //
 #include "SmbiosMisc.h"
+#include <Library/HobLib.h>
 #include <Include/BootLine.h>
+#include <Guid/VersionInfoHobGuid.h>
 
 
 /**
@@ -60,14 +62,29 @@ GetBiosReleaseDate (
   )
 {
     CHAR16                  *ReleaseDate = NULL;
-    
+    VERSION_INFO            *Version;
+    VOID                    *Hob;
+
     ReleaseDate = AllocateZeroPool ((sizeof (CHAR16)) * SMBIOS_STRING_MAX_LENGTH);
     if(NULL == ReleaseDate)
     {
         return NULL;
     }
 
-    StrCpyS(ReleaseDate, SMBIOS_STRING_MAX_LENGTH, PcdGetPtr (PcdFirmwareReleaseDateString));
+    Hob = GetFirstGuidHob (&gVersionInfoHobGuid);
+    if (Hob == NULL) {
+      DEBUG ((EFI_D_ERROR, "[%a:%d] Version info HOB not found!\n", __FUNCTION__, __LINE__));
+      return NULL;
+    }
+
+    Version = GET_GUID_HOB_DATA (Hob);
+    (VOID)UnicodeSPrintAsciiFormat( ReleaseDate, 
+                          (sizeof (CHAR16)) * SMBIOS_STRING_MAX_LENGTH, 
+                          "%02d/%02d/%4d",                               
+                          Version->BuildTime.Month, 
+                          Version->BuildTime.Day,
+                          Version->BuildTime.Year
+                          );  
 
     return ReleaseDate;
 }
