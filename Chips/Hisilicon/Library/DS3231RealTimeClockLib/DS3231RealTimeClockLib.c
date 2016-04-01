@@ -164,7 +164,7 @@ LibGetTime (
   EFI_STATUS  Status = EFI_SUCCESS;
   UINT8       Temp;
   UINT8       BaseHour = 0;
-  UINT16      BaseYear = 2000;
+  UINT16      BaseYear = 1900;
   
   I2C_DEVICE    Dev;
 
@@ -194,8 +194,8 @@ LibGetTime (
     Status = EFI_DEVICE_ERROR;
     goto EXIT;
   }
-  if((Temp&0x80) == 0){
-    BaseYear = 2100;  
+  if((Temp&0x80)){
+    BaseYear = 2000;
   }
   
   Status = I2CRead(&Dev,DS3231_REGADDR_YEAR,1,&Temp);
@@ -284,7 +284,7 @@ LibSetTime (
   EFI_STATUS  Status = EFI_SUCCESS;
   I2C_DEVICE    Dev;
   UINT8 Temp;
-  UINT16 BaseYear = 2000;
+  UINT16 BaseYear = 1900;
 
   // Check the input parameters are within the range specified by UEFI
   if ((Time->Year   < 2000) ||
@@ -353,11 +353,12 @@ LibSetTime (
     goto EXIT;
   }
 
-  Temp = 0x8;
-  if(Time->Year > 2099){
-    Temp = 0x0;
-    BaseYear = 2100;
+  Temp = 0x0;
+  if(Time->Year > 2000){
+    Temp = 0x8;
+    BaseYear = 2000;
   }
+  
   if(Time->Month > 9){
     Temp |= 0x1;
   }
