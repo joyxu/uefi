@@ -150,47 +150,33 @@ MemMap (
 
   *Mapping = Map;
 
-  if ((((UINTN)HostAddress & (EFI_PAGE_SIZE - 1)) != 0) ||
-      ((*NumberOfBytes % EFI_PAGE_SIZE) != 0)) {
     
-    // Get the cacheability of the region
-    Status = gDS->GetMemorySpaceDescriptor (*DeviceAddress, &GcdDescriptor);    
-    if (EFI_ERROR(Status)) {
-      return Status;
-    }
+  // Get the cacheability of the region
+  Status = gDS->GetMemorySpaceDescriptor (*DeviceAddress, &GcdDescriptor);
+  if (EFI_ERROR(Status)) {
+    return Status;
+  }
+
+  // If the mapped buffer is not an uncached buffer
+  if ( (GcdDescriptor.Attributes != EFI_MEMORY_WC) &&
+       (GcdDescriptor.Attributes != EFI_MEMORY_UC) )
+  {
+    //
+    // If the buffer does not fill entire cache lines we must double buffer into
+    // uncached memory. Device (PCI) address becomes uncached page.
+    //
+    Map->DoubleBuffer  = TRUE;
+    Buffer = UncachedAllocatePagesBelow4G(EFI_SIZE_TO_PAGES (*NumberOfBytes));
     
-    // If the mapped buffer is not an uncached buffer
-    if ( (GcdDescriptor.Attributes != EFI_MEMORY_WC) &&
-         (GcdDescriptor.Attributes != EFI_MEMORY_UC) )
-    {        
-      //
-      // If the buffer does not fill entire cache lines we must double buffer into
-      // uncached memory. Device (PCI) address becomes uncached page.
-      //
-      Map->DoubleBuffer  = TRUE;
-      Buffer = UncachedAllocatePagesBelow4G(EFI_SIZE_TO_PAGES (*NumberOfBytes));
-      
-      if (Buffer == NULL) {
-        return EFI_OUT_OF_RESOURCES;
-      }
-
-      (VOID)CopyMem(Buffer, HostAddress, *NumberOfBytes);
-
-      *DeviceAddress = (EFI_PHYSICAL_ADDRESS)(UINTN)Buffer;
-    } else {
-      Map->DoubleBuffer  = FALSE;
+    if (Buffer == NULL) {
+      return EFI_OUT_OF_RESOURCES;
     }
+
+    (VOID)CopyMem(Buffer, HostAddress, *NumberOfBytes);
+
+    *DeviceAddress = (EFI_PHYSICAL_ADDRESS)(UINTN)Buffer;
   } else {
     Map->DoubleBuffer  = FALSE;
-
-    // Flush the Data Cache (should not have any effect if the memory region is uncached)
-    gCpu->FlushDataCache (gCpu, *DeviceAddress, *NumberOfBytes, EfiCpuFlushTypeWriteBackInvalidate);
-
-    Status = gDS->SetMemorySpaceAttributes (*DeviceAddress & ~(BASE_4KB - 1), ALIGN_VALUE (*NumberOfBytes, BASE_4KB), EFI_MEMORY_WC);
-    //ASSERT_EFI_ERROR (Status);
-    if (EFI_ERROR (Status)) {    
-      DEBUG((EFI_D_ERROR, "[%a]:[%dL] SetMemorySpaceAttributes Fail. %r\n", __FUNCTION__, __LINE__, Status));
-    }
   }
 
   Map->HostAddress   = (UINTN)HostAddress;
