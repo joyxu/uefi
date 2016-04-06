@@ -36,10 +36,10 @@
   IoLib
   BaseLib
   BaseMemoryLib
-
+  TimerLib
 
   OemMiscLib
-  
+
 [BuildOptions]
 
 [FixedPcd]

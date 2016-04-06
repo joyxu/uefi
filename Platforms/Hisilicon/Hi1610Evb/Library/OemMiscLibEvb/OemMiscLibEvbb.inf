@@ -1,0 +1,33 @@
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = OemMiscLibEvb
+  FILE_GUID                      = B9CE7465-21A2-4ecd-B347-BBDDBD098CEE
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = OemMiscLib
+
+[Sources.common]
+  BoardFeatureEvbb.c
+  OemMiscLibEvb.c
+  BoardFeatureEvbbStrings.uni
+
+[Sources.AARCH64.GCC]
+  AArch64/OemPostStartIndicatorEvb.s
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+  OpenPlatformPkg/Chips/Hisilicon/HisiPkg.dec
+  OpenPlatformPkg/Platforms/Hisilicon/Hi1610Evb/Hi1610EvbPkg.dec
+
+[LibraryClasses]
+  PcdLib
+
+[BuildOptions]
+
+[Pcd]
+  gPv660EvbTokenSpaceGuid.PcdOemGpioLed0
+  gPv660EvbTokenSpaceGuid.PcdOemGpioLed1
+  gHwTokenSpaceGuid.PcdTrustedFirmwareEnable
+

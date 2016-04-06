@@ -18,17 +18,20 @@
 
 #include "Pv660Platform.h"
 
-DefinitionBlock("DsdtTable.aml", "DSDT", 1, "HISI", "HISI-EVB", EFI_ACPI_ARM_OEM_REVISION) {
-     include ("D03Mbig.asl")
-     include ("CPU.asl")
-     //include ("ComHi1610.asl")
-     include ("I2c.asl")
-     include ("D03Usb.asl")
+DefinitionBlock("DsdtTable.aml", "DSDT", 1, "HISI", "HISI-D02", EFI_ACPI_ARM_OEM_REVISION) {
+  include ("Mbig.asl")
+  include ("CPU.asl")
+  include ("Com.asl")
+  include ("I2c.asl")
+  include ("Usb.asl")
+  include ("Ctl.asl")
+  include ("Sata.asl")
+  include ("Hns.asl")
   Scope(_SB) {
    
     
     //Device(I2C0)  { 
-	//Name(_HID, "HISI0001")  
+	//Name(_HID, "HISI0001") 
 	//Name(_UID, 0)
 	//Name (_CRS, ResourceTemplate ()  { 
 	//	Memory32Fixed (ReadWrite, 0xA00E0000 , 0x10000) 
@@ -45,7 +48,7 @@ DefinitionBlock("DsdtTable.aml", "DSDT", 1, "HISI", "HISI-EVB", EFI_ACPI_ARM_OEM
    //}
 
    //Device(I2C1)  { 
-	//Name(_HID, "HISI0001")  
+	//Name(_HID, "HISI0001") 
 	//Name(_UID, 1)
 	//Name (_CRS, ResourceTemplate ()  { 
 	//	Memory32Fixed (ReadWrite, 0xA00F0000 , 0x10000) 
@@ -77,7 +80,7 @@ DefinitionBlock("DsdtTable.aml", "DSDT", 1, "HISI", "HISI-EVB", EFI_ACPI_ARM_OEM
 	//})
     //}
     //Device(I2C3)  { 
-	//Name(_HID, "HISI0001")  
+	//Name(_HID, "HISI0001") 
 	//Name(_UID, 3)
 	//Name (_CRS, ResourceTemplate ()  { 
 	//	Memory32Fixed (ReadWrite, 0x60330000 , 0x10000) 

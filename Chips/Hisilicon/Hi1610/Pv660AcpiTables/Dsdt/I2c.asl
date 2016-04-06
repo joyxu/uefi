@@ -16,19 +16,10 @@
 
 **/
 
-#include "Pv660Platform.h"
-
-DefinitionBlock("DsdtTable.aml", "DSDT", 1, "HISI", "HISI-EVB", EFI_ACPI_ARM_OEM_REVISION) {
-     include ("D03Mbig.asl")
-     include ("CPU.asl")
-     //include ("ComHi1610.asl")
-     include ("I2c.asl")
-     include ("D03Usb.asl")
-  Scope(_SB) {
-   
-    
+Scope(_SB) 
+{
     //Device(I2C0)  { 
-	//Name(_HID, "HISI0001")  
+	//Name(_HID, "HISI0001") 
 	//Name(_UID, 0)
 	//Name (_CRS, ResourceTemplate ()  { 
 	//	Memory32Fixed (ReadWrite, 0xA00E0000 , 0x10000) 
@@ -92,5 +83,4 @@ DefinitionBlock("DsdtTable.aml", "DSDT", 1, "HISI", "HISI-EVB", EFI_ACPI_ARM_OEM
 	//	} 
 	//})
   //}
- } // Scope(_SB)
 }
