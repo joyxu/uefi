@@ -358,6 +358,8 @@
   gArmPlatformTokenSpaceGuid.PcdSP804TimerPerformanceBase|0x60060000
   gArmPlatformTokenSpaceGuid.PcdSP804TimerMetronomeBase|0x60060000
 
+  gHwTokenSpaceGuid.PcdPcieMsiTargetaddress|0x6d000040
+
 ################################################################################
 #
 # Components Section - list of all EDK II Modules needed by this Platform

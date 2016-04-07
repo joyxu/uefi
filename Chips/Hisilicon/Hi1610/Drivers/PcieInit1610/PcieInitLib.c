@@ -1077,7 +1077,7 @@ void PcieConfigContextHi1610(UINT32 soctype, UINT32 HostBridgeNum, UINT32 Port)
 {
 	UINT32 Value = 0;
 
-    RegWrite(PCIE_APB_SLVAE_BASE_1610[HostBridgeNum][Port] + 0x11b4, 0xc6010040);
+    RegWrite(PCIE_APB_SLVAE_BASE_1610[HostBridgeNum][Port] + 0x11b4, PcdGet64 (PcdPcieMsiTargetaddress));
     RegWrite(PCIE_APB_SLVAE_BASE_1610[HostBridgeNum][Port] + 0x11c4, 0);
     RegRead(PCIE_APB_SLVAE_BASE_1610[HostBridgeNum][Port] + 0x11c8, Value);
     Value |= (1 << 12);

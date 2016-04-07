@@ -48,6 +48,7 @@
   gHwTokenSpaceGuid.PcdPcieRootBridgeMask
   gHwTokenSpaceGuid.PcdPcieRootBridgeMask2P #uniBIOS__l00228991_start DTS2016010404352 1P´úÂëÉÏ¿â 2016-1-4 16:06:06
   gHwTokenSpaceGuid.Pcdsoctype
+  gHwTokenSpaceGuid.PcdPcieMsiTargetaddress
 
 [depex]
   TRUE

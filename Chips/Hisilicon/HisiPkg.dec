@@ -199,6 +199,8 @@
   gHwTokenSpaceGuid.PcdSasBaseAddress|0x0|UINT32|0x00000060
   gHwTokenSpaceGuid.PcdSasCtrlBaseAddress|0x0|UINT32|0x00000063
 
+  gHwTokenSpaceGuid.PcdPcieMsiTargetaddress|0x0|UINT64|0x00000064
+
 [PcdsFeatureFlag]
 
 
