@@ -188,6 +188,7 @@ STATIC EFI_STATUS prepare_cmd (
 	//waiting for slot free, dma completed
 	while (slot->used) {
 		if (READ_REG32(OQ_INT_SRC) & BIT(queue)) {
+      MicroSecondDelay(500);
 			break;
 		}
 		NanoSecondDelay (100);
