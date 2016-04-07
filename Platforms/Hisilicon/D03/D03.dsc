@@ -582,7 +582,11 @@
   OpenPlatformPkg/Chips/Hisilicon/Drivers/CpuIo2Dxe/CpuIo2Dxe.inf
   OpenPlatformPkg/Chips/Hisilicon/Hi1610/Drivers/PcieInit1610/PcieInitDxe.inf
   OpenPlatformPkg/Platforms/Hisilicon/D03/Drivers/PciPlatform/PciPlatform.inf
-  OpenPlatformPkg/Chips/Hisilicon/Hi1610/Drivers/PciHostBridgeDxe1610/PciHostBridgeDxe.inf
+  OpenPlatformPkg/Chips/Hisilicon/Hi1610/Drivers/PciHostBridgeDxe1610/PciHostBridgeDxe.inf {
+    <LibraryClasses>
+      NULL|OpenPlatformPkg/Platforms/Hisilicon/D03/Library/PlatformPciLib/PlatformPciLib.inf
+  }
+
   MdeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf
   
   OpenPlatformPkg/Platforms/Hisilicon/Binary/D03/Drivers/ReportPciePlugDidVidToBmc/ReportPciePlugDidVidToBmc.inf

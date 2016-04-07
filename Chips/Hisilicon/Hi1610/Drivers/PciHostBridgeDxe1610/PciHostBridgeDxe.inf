@@ -79,49 +79,7 @@
   gArmTokenSpaceGuid.PcdSystemMemorySize
   gHwTokenSpaceGuid.PcdPcieRootBridgeMask
   gHwTokenSpaceGuid.PcdPcieRootBridgeMask2P   #uniBIOS__l00228991_start DTS2016010404352 1P´úÂëÉÏ¿â 2016-1-4 16:06:06
-  gHwTokenSpaceGuid.PcdHb1BaseAddress
-  gHwTokenSpaceGuid.PcdHb0Rb0PciConfigurationSpaceBaseAddress
-  gHwTokenSpaceGuid.PcdHb0Rb0PciConfigurationSpaceSize
-  gHwTokenSpaceGuid.PcdHb0Rb1PciConfigurationSpaceBaseAddress
-  gHwTokenSpaceGuid.PcdHb0Rb1PciConfigurationSpaceSize
-  gHwTokenSpaceGuid.PcdHb0Rb2PciConfigurationSpaceBaseAddress
-  gHwTokenSpaceGuid.PcdHb0Rb2PciConfigurationSpaceSize
-  gHwTokenSpaceGuid.PcdHb0Rb3PciConfigurationSpaceBaseAddress
-  gHwTokenSpaceGuid.PcdHb0Rb3PciConfigurationSpaceSize
-  gHwTokenSpaceGuid.PciHb0Rb0Base
-  gHwTokenSpaceGuid.PciHb0Rb1Base
-  gHwTokenSpaceGuid.PciHb0Rb2Base
-  gHwTokenSpaceGuid.PciHb0Rb3Base
   gHwTokenSpaceGuid.Pcdsoctype
-  gHwTokenSpaceGuid.PcdHb0Rb0PciRegionBaseAddress
-  gHwTokenSpaceGuid.PcdHb0Rb1PciRegionBaseAddress
-  gHwTokenSpaceGuid.PcdHb0Rb2PciRegionBaseAddress
-  gHwTokenSpaceGuid.PcdHb0Rb3PciRegionBaseAddress
-
-  gHwTokenSpaceGuid.PcdHb0Rb0PciRegionSize
-  gHwTokenSpaceGuid.PcdHb0Rb1PciRegionSize
-  gHwTokenSpaceGuid.PcdHb0Rb2PciRegionSize
-  gHwTokenSpaceGuid.PcdHb0Rb3PciRegionSize
-
-  gHwTokenSpaceGuid.PcdHb0Rb0CpuMemRegionBase
-  gHwTokenSpaceGuid.PcdHb0Rb1CpuMemRegionBase
-  gHwTokenSpaceGuid.PcdHb0Rb2CpuMemRegionBase
-
-  gHwTokenSpaceGuid.PcdHb0Rb0CpuIoRegionBase
-  gHwTokenSpaceGuid.PcdHb0Rb1CpuIoRegionBase
-  gHwTokenSpaceGuid.PcdHb0Rb2CpuIoRegionBase
-
-  gHwTokenSpaceGuid.PcdHb0Rb1IoBase
-  gHwTokenSpaceGuid.PcdHb0Rb1IoSize
-
-  gHwTokenSpaceGuid.PcdHb0Rb2IoBase
-  gHwTokenSpaceGuid.PcdHb0Rb2IoSize
-  gHwTokenSpaceGuid.PcdHb0Rb0IoBase
-  gHwTokenSpaceGuid.PcdHb0Rb0IoSize
-  gHwTokenSpaceGuid.PcdHb0Rb1IoBase
-  gHwTokenSpaceGuid.PcdHb0Rb1IoSize
-  gHwTokenSpaceGuid.PcdHb0Rb2IoBase
-  gHwTokenSpaceGuid.PcdHb0Rb2IoSize
 
 [Guids]
   gEfiEventExitBootServicesGuid                 ## PRODUCES ## Event

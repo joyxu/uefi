@@ -549,7 +549,11 @@
   #PCIe Support
   OpenPlatformPkg/Chips/Hisilicon/Drivers/CpuIo2Dxe/CpuIo2Dxe.inf
   OpenPlatformPkg/Chips/Hisilicon/Hi1610/Drivers/PcieInit1610/PcieInitDxe.inf
-  OpenPlatformPkg/Chips/Hisilicon/Hi1610/Drivers/PciHostBridgeDxe1610/PciHostBridgeDxe.inf
+  OpenPlatformPkg/Chips/Hisilicon/Hi1610/Drivers/PciHostBridgeDxe1610/PciHostBridgeDxe.inf {
+    <LibraryClasses>
+      NULL|OpenPlatformPkg/Platforms/Hisilicon/Hi1610Evb/Library/PlatformPciLib/PlatformPciLib.inf
+  }
+
   MdeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf 
   OpenPlatformPkg/Chips/Hisilicon/Drivers/Smbios/MemorySubClassDxe/MemorySubClassDxe.inf
   
