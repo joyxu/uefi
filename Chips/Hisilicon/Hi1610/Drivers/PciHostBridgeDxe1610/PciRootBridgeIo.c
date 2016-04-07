@@ -1749,8 +1749,10 @@ if (EfiPciAddress->Bus < PrivateData->BusBase || EfiPciAddress->Bus > PrivateDat
   //DTS2015081202801 È¦¸´ÔÓ¶ÈÕû¸Ä
   if(EfiPciAddress->Bus == PrivateData->BusBase)
   {
-  if((EfiPciAddress->Device != 0x0) || (EfiPciAddress->Function != 0))
-    return EFI_UNSUPPORTED;
+  if((EfiPciAddress->Device != 0x0) || (EfiPciAddress->Function != 0)) {
+      SetMem (Buffer, mOutStride[Width] * Count, 0xFF);
+      return EFI_UNSUPPORTED;
+    }
   }
 
   if (EfiPciAddress->Bus == PrivateData->BusBase){
@@ -1760,12 +1762,13 @@ if (EfiPciAddress->Bus < PrivateData->BusBase || EfiPciAddress->Bus > PrivateDat
   {
       if (!PcieIsLinkUp(PrivateData->SocType,PrivateData->RbPciBar, PrivateData->Port))
       {
-    	 return EFI_NOT_READY;
+        SetMem (Buffer, mOutStride[Width] * Count, 0xFF);
+        return EFI_NOT_READY;
       }
 
       if ((EfiPciAddress->Device != 0x0) || (EfiPciAddress->Function != 0))
       {
-        *((UINT32 *)Buffer) = 0xffffffff;
+        SetMem (Buffer, mOutStride[Width] * Count, 0xFF);
         return EFI_SUCCESS;
       }
 
