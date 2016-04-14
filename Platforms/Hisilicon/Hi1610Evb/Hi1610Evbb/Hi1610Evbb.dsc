@@ -209,7 +209,7 @@
   gHwTokenSpaceGuid.PcdDsaSmmuBaseAddress|0xc0040000
   gHwTokenSpaceGuid.PcdAlgSmmuBaseAddress|0xd0040000
 
-  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareVersionString|L"Hi1610 EVBb BIOS v0.2"
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareVersionString|L"Hi1610 EVBb BIOS v0.3"
 
   gHwTokenSpaceGuid.PcdSystemProductName|L"Hi1610 EVBb"
   gHwTokenSpaceGuid.PcdSystemVersion|L"Estuary"
