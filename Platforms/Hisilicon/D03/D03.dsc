@@ -492,7 +492,7 @@
   MdeModulePkg/Universal/Acpi/AcpiPlatformDxe/AcpiPlatformDxe.inf
   MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf
 
-  OpenPlatformPkg/Chips/Hisilicon/Pv660/Pv660AcpiTables/AcpiTables.inf
+  OpenPlatformPkg/Chips/Hisilicon/Pv660/Pv660AcpiTables/AcpiTablesHi1610.inf
 
   #
   # Usb Support
