@@ -61,4 +61,19 @@ Scope(_SB)
 	      }
 	 })
     }
+
+   Device(MBI3) {          // Mbi-gen dsa sas0 intc
+    Name(_HID, "HISI0152")
+    Name(_CID, "MBIGen")
+    Name(_CRS, ResourceTemplate() {
+      Memory32Fixed(ReadWrite, 0xc0080000, 0x10000)
+    })
+	 Name(_DSD, Package () {
+	      ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+	      Package ()
+	      {
+	        Package () {"num-pins", 128}
+	      }
+	 })
+    }
 }
