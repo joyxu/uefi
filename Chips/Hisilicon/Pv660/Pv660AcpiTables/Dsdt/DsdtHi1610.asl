@@ -19,9 +19,9 @@
 #include "Pv660Platform.h"
 
 DefinitionBlock("DsdtTable.aml", "DSDT", 1, "HISI", "HISI-EVB", EFI_ACPI_ARM_OEM_REVISION) {
+     include ("Lpc.asl")
      include ("D03Mbig.asl")
      include ("CPU.asl")
-     //include ("ComHi1610.asl")
      include ("I2c.asl")
      include ("D03Usb.asl")
   Scope(_SB) {
