@@ -7,16 +7,16 @@
  * Format: [ByteLength]  FieldName : HexFieldValue
  */
 [0004]                          Signature : "IORT"    [IO Remapping Table]
-[0004]                       Table Length : 00000092
+[0004]                       Table Length : 0000029e
 [0001]                           Revision : 00
 [0001]                           Checksum : BC
 [0006]                             Oem ID : "HISI "
-[0008]                       Oem Table ID : "TEMPLATE"
+[0008]                       Oem Table ID : "D03"
 [0004]                       Oem Revision : 00000000
 [0004]                    Asl Compiler ID : "INTL"
 [0004]              Asl Compiler Revision : 20150410
 
-[0004]                         Node Count : 00000004
+[0004]                         Node Count : 00000008
 [0004]                        Node Offset : 00000034
 [0004]                           Reserved : 00000000
 [0004]                   Optional Padding : 00 00 00 00 
@@ -94,7 +94,7 @@
 [0004]              Flags (decoded below) : 00000000
                            Single Mapping : 1
 
-/* mbi-gen dsa mbi1 - sas2, named component */
+/* mbi-gen dsa mbi2 - sas2, named component */
 [0001]                               Type : 01
 [0002]                             Length : 0046
 [0001]                           Revision : 00
@@ -124,3 +124,214 @@
 [0004]                   Output Reference : 00000034
 [0004]              Flags (decoded below) : 00000000
                            Single Mapping : 1
+
+/* mbi-gen dsa mbi3 - dsa0, srv named component */
+[0001]                               Type : 01
+[0002]                             Length : 0046
+[0001]                           Revision : 00
+[0004]                           Reserved : 00000000
+[0004]                      Mapping Count : 00000001
+[0004]                     Mapping Offset : 00000032
+
+[0004]                         Node Flags : 00000000
+[0008]                  Memory Properties : [IORT Memory Access Properties]
+[0004]                    Cache Coherency : 00000000
+[0001]              Hints (decoded below) : 00
+                                Transient : 0
+                           Write Allocate : 0
+                            Read Allocate : 0
+                                 Override : 0
+[0002]                           Reserved : 0000
+[0001]       Memory Flags (decoded below) : 00
+                                Coherency : 0
+                         Device Attribute : 0
+[0001]                  Memory Size Limit : 00
+[0016]                        Device Name : "\_SB_.MBI3"
+[0004]                            Padding : 00 00 00 00
+
+[0004]                         Input base : 00000000
+[0004]                           ID Count : 00000001
+[0004]                        Output Base : 00040800
+[0004]                   Output Reference : 00000034
+[0004]              Flags (decoded below) : 00000000
+                           Single Mapping : 1
+
+/* mbi-gen dsa mbi4 - dsa1, dbg0 named component */
+[0001]                               Type : 01
+[0002]                             Length : 0046
+[0001]                           Revision : 00
+[0004]                           Reserved : 00000000
+[0004]                      Mapping Count : 00000001
+[0004]                     Mapping Offset : 00000032
+
+[0004]                         Node Flags : 00000000
+[0008]                  Memory Properties : [IORT Memory Access Properties]
+[0004]                    Cache Coherency : 00000000
+[0001]              Hints (decoded below) : 00
+                                Transient : 0
+                           Write Allocate : 0
+                            Read Allocate : 0
+                                 Override : 0
+[0002]                           Reserved : 0000
+[0001]       Memory Flags (decoded below) : 00
+                                Coherency : 0
+                         Device Attribute : 0
+[0001]                  Memory Size Limit : 00
+[0016]                        Device Name : "\_SB_.MBI4"
+[0004]                            Padding : 00 00 00 00
+
+[0004]                         Input base : 00000000
+[0004]                           ID Count : 00000001
+[0004]                        Output Base : 00040b1c
+[0004]                   Output Reference : 00000034
+[0004]              Flags (decoded below) : 00000000
+                           Single Mapping : 1
+
+/* mbi-gen dsa mbi5 - dsa2, dbg1  named component */
+[0001]                               Type : 01
+[0002]                             Length : 0046
+[0001]                           Revision : 00
+[0004]                           Reserved : 00000000
+[0004]                      Mapping Count : 00000001
+[0004]                     Mapping Offset : 00000032
+
+[0004]                         Node Flags : 00000000
+[0008]                  Memory Properties : [IORT Memory Access Properties]
+[0004]                    Cache Coherency : 00000000
+[0001]              Hints (decoded below) : 00
+                                Transient : 0
+                           Write Allocate : 0
+                            Read Allocate : 0
+                                 Override : 0
+[0002]                           Reserved : 0000
+[0001]       Memory Flags (decoded below) : 00
+                                Coherency : 0
+                         Device Attribute : 0
+[0001]                  Memory Size Limit : 00
+[0016]                        Device Name : "\_SB_.MBI5"
+[0004]                            Padding : 00 00 00 00
+
+[0004]                         Input base : 00000000
+[0004]                           ID Count : 00000001
+[0004]                        Output Base : 00040b1d
+[0004]                   Output Reference : 00000034
+[0004]              Flags (decoded below) : 00000000
+                           Single Mapping : 1
+
+/* mbi-gen dsa mbi6 - dsa sas0  named component */
+[0001]                               Type : 01
+[0002]                             Length : 0046
+[0001]                           Revision : 00
+[0004]                           Reserved : 00000000
+[0004]                      Mapping Count : 00000001
+[0004]                     Mapping Offset : 00000032
+
+[0004]                         Node Flags : 00000000
+[0008]                  Memory Properties : [IORT Memory Access Properties]
+[0004]                    Cache Coherency : 00000000
+[0001]              Hints (decoded below) : 00
+                                Transient : 0
+                           Write Allocate : 0
+                            Read Allocate : 0
+                                 Override : 0
+[0002]                           Reserved : 0000
+[0001]       Memory Flags (decoded below) : 00
+                                Coherency : 0
+                         Device Attribute : 0
+[0001]                  Memory Size Limit : 00
+[0016]                        Device Name : "\_SB_.MBI6"
+[0004]                            Padding : 00 00 00 00
+
+[0004]                         Input base : 00000000
+[0004]                           ID Count : 00000001
+[0004]                        Output Base : 00040900
+[0004]                   Output Reference : 00000034
+[0004]              Flags (decoded below) : 00000000
+                           Single Mapping : 1
+
+/* RC 0 */
+[0001]                               Type : 02
+[0002]                             Length : 0034
+[0001]                           Revision : 00
+[0004]                           Reserved : 00000000
+[0004]                      Mapping Count : 00000001
+[0004]                     Mapping Offset : 00000020
+
+[0008]                  Memory Properties : [IORT Memory Access Properties]
+[0004]                    Cache Coherency : 00000001
+[0001]              Hints (decoded below) : 00
+                                Transient : 0
+                           Write Allocate : 0
+                            Read Allocate : 0
+                                 Override : 0
+[0002]                           Reserved : 0000
+[0001]       Memory Flags (decoded below) : 00
+                                Coherency : 0
+                         Device Attribute : 0
+[0004]                      ATS Attribute : 00000000
+[0004]                 PCI Segment Number : 00000001
+
+[0004]                         Input base : 00000000
+[0004]                           ID Count : 00002000
+[0004]                        Output Base : 00000000
+[0004]                   Output Reference : 00000034
+[0004]              Flags (decoded below) : 00000000
+                           Single Mapping : 0
+
+/* RC 1 */
+[0001]                               Type : 02
+[0002]                             Length : 0034
+[0001]                           Revision : 00
+[0004]                           Reserved : 00000000
+[0004]                      Mapping Count : 00000001
+[0004]                     Mapping Offset : 00000020
+
+[0008]                  Memory Properties : [IORT Memory Access Properties]
+[0004]                    Cache Coherency : 00000001
+[0001]              Hints (decoded below) : 00
+                                Transient : 0
+                           Write Allocate : 0
+                            Read Allocate : 0
+                                 Override : 0
+[0002]                           Reserved : 0000
+[0001]       Memory Flags (decoded below) : 00
+                                Coherency : 0
+                         Device Attribute : 0
+[0004]                      ATS Attribute : 00000000
+[0004]                 PCI Segment Number : 00000001
+
+[0004]                         Input base : 0000e000
+[0004]                           ID Count : 00002000
+[0004]                        Output Base : 0000e000
+[0004]                   Output Reference : 00000034
+[0004]              Flags (decoded below) : 00000000
+                           Single Mapping : 0
+
+/* RC 2 */
+[0001]                               Type : 02
+[0002]                             Length : 0034
+[0001]                           Revision : 00
+[0004]                           Reserved : 00000000
+[0004]                      Mapping Count : 00000001
+[0004]                     Mapping Offset : 00000020
+
+[0008]                  Memory Properties : [IORT Memory Access Properties]
+[0004]                    Cache Coherency : 00000001
+[0001]              Hints (decoded below) : 00
+                                Transient : 0
+                           Write Allocate : 0
+                            Read Allocate : 0
+                                 Override : 0
+[0002]                           Reserved : 0000
+[0001]       Memory Flags (decoded below) : 00
+                                Coherency : 0
+                         Device Attribute : 0
+[0004]                      ATS Attribute : 00000000
+[0004]                 PCI Segment Number : 00000002
+
+[0004]                         Input base : 00008000
+[0004]                           ID Count : 00002000
+[0004]                        Output Base : 00008000
+[0004]                   Output Reference : 00000034
+[0004]              Flags (decoded below) : 00000000
+                           Single Mapping : 0

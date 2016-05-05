@@ -45,7 +45,7 @@ Scope(_SB)
 	        Package () {"num-pins", 128}
 	      }
 	 })
-    }
+  }
 
   Device(MBI2) {          // Mbi-gen sas2 intc
     Name(_HID, "HISI0152")
@@ -60,5 +60,66 @@ Scope(_SB)
 	        Package () {"num-pins", 128}
 	      }
 	 })
-    }
+  }
+
+  Device(MBI3) {          // Mbi-gen dsa0 srv intc
+    Name(_HID, "HISI0152")
+    Name(_CID, "MBIGen")
+    Name(_CRS, ResourceTemplate() {
+      Memory32Fixed(ReadWrite, 0xc0080000, 0x10000)
+    })
+	 Name(_DSD, Package () {
+	      ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+	      Package ()
+	      {
+	        Package () {"num-pins", 409}
+	      }
+	 })
+  }
+
+  Device(MBI4) {          // Mbi-gen dsa1 dbg0 intc
+    Name(_HID, "HISI0152")
+    Name(_CID, "MBIGen")
+    Name(_CRS, ResourceTemplate() {
+      Memory32Fixed(ReadWrite, 0xc0080000, 0x10000)
+    })
+	 Name(_DSD, Package () {
+	      ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+	      Package ()
+	      {
+	        Package () {"num-pins", 9}
+	      }
+	 })
+  }
+
+  Device(MBI5) {          // Mbi-gen dsa2 dbg1 intc
+    Name(_HID, "HISI0152")
+    Name(_CID, "MBIGen")
+    Name(_CRS, ResourceTemplate() {
+      Memory32Fixed(ReadWrite, 0xc0080000, 0x10000)
+    })
+	 Name(_DSD, Package () {
+	      ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+	      Package ()
+	      {
+	        Package () {"num-pins", 9}
+	      }
+	 })
+  }
+
+  Device(MBI6) {          // Mbi-gen dsa sas0 intc
+    Name(_HID, "HISI0152")
+    Name(_CID, "MBIGen")
+    Name(_CRS, ResourceTemplate() {
+      Memory32Fixed(ReadWrite, 0xc0080000, 0x10000)
+    })
+	 Name(_DSD, Package () {
+	      ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+	      Package ()
+	      {
+	        Package () {"num-pins", 128}
+	      }
+	 })
+  }
+
 }
