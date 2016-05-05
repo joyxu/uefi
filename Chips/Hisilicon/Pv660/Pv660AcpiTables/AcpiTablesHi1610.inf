@@ -31,7 +31,7 @@
   Fadt.aslc
   Gtdt.aslc
   MadtHi1610.aslc
-  Mcfg.aslc
+  D03Mcfg.aslc
   Srat.aslc
   Slit.aslc
   D03Iort.asl
