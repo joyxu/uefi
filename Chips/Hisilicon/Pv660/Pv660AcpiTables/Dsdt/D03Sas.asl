@@ -140,6 +140,7 @@ Scope(_SB)
 		  Package (2) {"sas-addr", Package() {50, 01, 88, 20, 16, 00, 00, 00}},
 		  Package () {"queue-count", 16},
 		  Package () {"phy-count", 8},
+		  Package () {"hip06-sas-v2-quirk-amt", 1},
               }
           })
 
